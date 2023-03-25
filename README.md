@@ -6,7 +6,7 @@
 - Widely used in `Android Projects``
 - Keep your code consistent.
 
-# Steps to integrate with KtLint
+### Steps to integrate with KtLint
 
 1. Add [KtLint Gradle Plugin](https://github.com/JLLeitschuh/ktlint-gradle#ktlint-plugin) at the `build.gradle` project level.
 2. Apply KtLint Plugin to [modules/subprojects](https://github.com/JLLeitschuh/ktlint-gradle#applying-to-subprojects).
