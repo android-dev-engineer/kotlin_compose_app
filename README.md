@@ -16,3 +16,8 @@
 6. Fix Kotlin issues: `./gradlew ktlintFormat` you agree with.
 
 Other options are [available](https://pinterest.github.io/ktlint/install/integrations/#gradle-integration)
+
+# [Pager in compose](https://developer.android.com/jetpack/compose/layouts/pager)
+
+- Used in intro screens
+- Slide between pages
