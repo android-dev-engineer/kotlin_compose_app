@@ -1,4 +1,6 @@
-# https://pinterest.github.io/ktlint/rules/configuration-ktlint
+# Rules: https://pinterest.github.io/ktlint/rules/configuration-ktlint
 [*.{kt,kts}]
 insert_final_newline = false
 max_line_length = 250
+# Disable rules: https://pinterest.github.io/ktlint/rules/configuration-ktlint/#disabled-rules
+ktlint_standard_no-wildcard-imports = disabled
