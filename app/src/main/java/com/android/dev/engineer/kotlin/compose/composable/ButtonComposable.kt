@@ -4,6 +4,7 @@ import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun ButtonComposable(
@@ -17,4 +18,13 @@ fun ButtonComposable(
     ) {
         Text(text = text)
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun PreviewButtonComposable() {
+    ButtonComposable(
+        text = "Skip",
+        onClick = {}
+    )
 }
