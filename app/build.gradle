@@ -54,4 +54,9 @@ dependencies {
     implementation "androidx.compose.material:material:1.4.0"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
+
+    // https://developer.android.com/jetpack/compose/testing#setup
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    androidTestImplementation "com.google.truth:truth:1.1.3"
 }
