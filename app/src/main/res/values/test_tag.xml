@@ -1,0 +1,5 @@
+<resources>
+    <string name="test_tag_pager_indicator">test_tag_pager_indicator</string>
+    <string name="test_tag_pager_indicator_selected">test_tag_pager_indicator_selected</string>
+    <string name="test_tag_pager_indicator_unselected">test_tag_pager_indicator_unselected</string>
+</resources>
