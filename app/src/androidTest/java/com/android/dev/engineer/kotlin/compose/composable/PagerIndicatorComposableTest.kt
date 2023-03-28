@@ -136,19 +136,18 @@ class PagerIndicatorComposableTest {
                 }
             }
 
-            val selectedIndicators = onAllNodesWithTag(testTag = activity.getString(R.string.test_tag_pager_indicator_selected)).fetchSemanticsNodes()
+            val selectedIndicators = onAllNodesWithTag(testTag = activity.getString(R.string.test_tag_pager_indicator_selected))
             val unselectedIndicators = onAllNodesWithTag(testTag = activity.getString(R.string.test_tag_pager_indicator_unselected))
 
-            assertThat(selectedIndicators).hasSize(1)
-            assertThat(unselectedIndicators.fetchSemanticsNodes()).hasSize(FOUR_IN_TOTAL - 1)
+            selectedIndicators.assertCountEquals(1)
+            unselectedIndicators.assertCountEquals(FOUR_IN_TOTAL - 1)
 
             unselectedIndicators[1].performClick()
             unselectedIndicators[0].performClick()
             unselectedIndicators[2].performClick()
 
-            assertThat(selectedIndex).isEqualTo(FOUR_IN_TOTAL - 1)
-            assertThat(selectedIndicators).hasSize(1)
-            assertThat(unselectedIndicators.fetchSemanticsNodes()).hasSize(FOUR_IN_TOTAL - 1)
+            selectedIndicators.assertCountEquals(1)
+            unselectedIndicators.assertCountEquals(FOUR_IN_TOTAL - 1)
         }
     }
 }
