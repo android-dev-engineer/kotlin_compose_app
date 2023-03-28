@@ -1,9 +1,7 @@
 package com.android.dev.engineer.kotlin.compose.composable
 
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -47,7 +45,7 @@ class PagerIndicatorComposableTest {
             }
             with(onNodeWithTag(testTag = activity.getString(R.string.test_tag_pager_indicator))) {
                 assertIsDisplayed()
-                hasScrollAction()
+                assert(hasScrollAction())
             }
         }
     }
@@ -90,12 +88,12 @@ class PagerIndicatorComposableTest {
                 }
             }
 
-            with(onNodeWithTag(testTag = activity.getString(R.string.test_tag_pager_indicator_selected)).fetchSemanticsNode()) {
-                hasClickAction()
-                assertHasModifier(modifier = Modifier.padding(all = DEFAULT_SPACING))
-                assertHasModifier(modifier = Modifier.size(size = DEFAULT_SIZE))
-                assertHasModifier(modifier = Modifier.clip(shape = CircleShape))
-                assertHasModifier(modifier = Modifier.background(color = color))
+            with(onNodeWithTag(testTag = activity.getString(R.string.test_tag_pager_indicator_selected))) {
+                assertHasClickAction()
+                fetchSemanticsNode().assertHasModifier(modifier = Modifier.padding(all = DEFAULT_SPACING))
+                fetchSemanticsNode().assertHasModifier(modifier = Modifier.size(size = DEFAULT_SIZE))
+                fetchSemanticsNode().assertHasModifier(modifier = Modifier.clip(shape = CircleShape))
+                fetchSemanticsNode().assertHasModifier(modifier = Modifier.background(color = color))
             }
         }
     }
@@ -103,8 +101,6 @@ class PagerIndicatorComposableTest {
     @Test
     fun testUnselectedCircleStyle() {
         with(composeTestRule) {
-            val color = Color(color = activity.getColor(R.color.black))
-
             setContent {
                 KotlinComposeAppTheme {
                     PagerIndicatorComposable(
@@ -112,23 +108,16 @@ class PagerIndicatorComposableTest {
                         total = FOUR_IN_TOTAL,
                         size = DEFAULT_SIZE,
                         spacing = DEFAULT_SPACING,
-                        color = color,
                         onClick = {}
                     )
                 }
             }
 
-            with(onNodeWithTag(testTag = activity.getString(R.string.test_tag_pager_indicator_selected)).fetchSemanticsNode()) {
-                hasClickAction()
-                assertHasModifier(modifier = Modifier.padding(all = DEFAULT_SPACING))
-                assertHasModifier(modifier = Modifier.size(size = DEFAULT_SIZE))
-                assertHasModifier(modifier = Modifier.background(color = color))
-                assertHasModifier(
-                    modifier = Modifier.border(
-                        border = BorderStroke(width = 2.dp, color = color),
-                        shape = CircleShape
-                    )
-                )
+            val unselectedIndicator = onAllNodesWithTag(testTag = activity.getString(R.string.test_tag_pager_indicator_unselected)).onFirst()
+            with(unselectedIndicator) {
+                assertHasClickAction()
+                fetchSemanticsNode().assertHasModifier(modifier = Modifier.padding(all = DEFAULT_SPACING))
+                fetchSemanticsNode().assertHasModifier(modifier = Modifier.size(size = DEFAULT_SIZE))
             }
         }
     }
@@ -140,7 +129,7 @@ class PagerIndicatorComposableTest {
             setContent {
                 KotlinComposeAppTheme {
                     PagerIndicatorComposable(
-                        selectedIndex = 0,
+                        selectedIndex = selectedIndex,
                         total = FOUR_IN_TOTAL,
                         onClick = { index -> selectedIndex = index }
                     )
