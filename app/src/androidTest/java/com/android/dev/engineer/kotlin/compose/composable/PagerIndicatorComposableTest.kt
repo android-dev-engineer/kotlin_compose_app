@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import com.android.dev.engineer.kotlin.compose.R
 import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
 import com.android.dev.engineer.kotlin.compose.utils.assertHasModifier
-import com.google.common.truth.Truth.assertThat
 import org.junit.Rule
 import org.junit.Test
 
