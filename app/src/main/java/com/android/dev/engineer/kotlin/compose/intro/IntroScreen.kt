@@ -24,12 +24,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.dev.engineer.kotlin.compose.composable.ButtonComposable
 import com.android.dev.engineer.kotlin.compose.composable.PagerIndicatorComposable
+import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
 import kotlinx.coroutines.launch
 
 @Composable
 fun IntroScreen(
-    onClickSkip: () -> Unit
+    onSkipClicked: (MainNavGraph) -> Unit
 ) {
     val introItems = listOf(
         IntroItem(title = "Page 1", imageVector = Icons.Filled.Call),
@@ -39,7 +40,10 @@ fun IntroScreen(
     )
     IntroScreenComposable(
         introItems = introItems,
-        onClickSkip = onClickSkip
+        onClickSkip = {
+            // TODO update via ViewModel
+            onSkipClicked(MainNavGraph.SignIn)
+        }
     )
 }
 
@@ -109,6 +113,6 @@ private fun IntroScreenComposable(
 @Composable
 private fun PreviewIntroScreen() {
     IntroScreen(
-        onClickSkip = {}
+        onSkipClicked = {}
     )
 }
