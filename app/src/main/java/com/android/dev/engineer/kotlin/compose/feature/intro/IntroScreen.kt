@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalFoundationApi::class)
 
-package com.android.dev.engineer.kotlin.compose.intro
+package com.android.dev.engineer.kotlin.compose.feature.intro
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image

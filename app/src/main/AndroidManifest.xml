@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".feature.main.MainActivity"
             android:theme="@style/Theme.KotlinComposeApp" />
     </application>
 

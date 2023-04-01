@@ -1,4 +1,4 @@
-package com.android.dev.engineer.kotlin.compose
+package com.android.dev.engineer.kotlin.compose.feature.main
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -10,7 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.sign_in.SignInScreen
-import com.android.dev.engineer.kotlin.compose.intro.IntroScreen
+import com.android.dev.engineer.kotlin.compose.feature.intro.IntroScreen
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
