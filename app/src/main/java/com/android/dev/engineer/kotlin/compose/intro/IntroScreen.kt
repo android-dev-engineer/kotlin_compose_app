@@ -112,7 +112,13 @@ private fun IntroScreenComposable(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewIntroScreen() {
-    IntroScreen(
-        onSkipClicked = {}
+    IntroScreenComposable(
+        introItems = listOf(
+            IntroItem(title = "Page 1", imageVector = Icons.Filled.Call),
+            IntroItem(title = "Page 2", imageVector = Icons.Filled.Search),
+            IntroItem(title = "Page 3", imageVector = Icons.Filled.Info),
+            IntroItem(title = "Page 4", imageVector = Icons.Filled.List)
+        ),
+        onClickSkip = {}
     )
 }
