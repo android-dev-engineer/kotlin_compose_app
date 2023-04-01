@@ -11,7 +11,9 @@ import androidx.navigation.compose.rememberNavController
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.sign_in.SignInScreen
 import com.android.dev.engineer.kotlin.compose.intro.IntroScreen
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     companion object {
         private const val START_DESTINATION_KEY = "start_destination_key"
