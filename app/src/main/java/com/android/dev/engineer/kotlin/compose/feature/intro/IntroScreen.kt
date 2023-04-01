@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.android.dev.engineer.kotlin.compose.composable.ButtonComposable
 import com.android.dev.engineer.kotlin.compose.composable.PagerIndicatorComposable
 import com.android.dev.engineer.kotlin.compose.composable.TextButtonComposable
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
@@ -41,7 +40,7 @@ fun IntroScreen(
     )
     IntroScreenComposable(
         introItems = introItems,
-        onClickSkip = {
+        onGetStartedAction = {
             // TODO update via ViewModel
             onSkipClicked(MainNavGraph.SignIn)
         }
@@ -51,7 +50,7 @@ fun IntroScreen(
 @Composable
 private fun IntroScreenComposable(
     introItems: List<IntroItem>,
-    onClickSkip: () -> Unit
+    onGetStartedAction: () -> Unit
 ) {
     KotlinComposeAppTheme {
         val pagerState = rememberPagerState()
@@ -83,6 +82,15 @@ private fun IntroScreenComposable(
                                 textAlign = TextAlign.Center,
                                 color = MaterialTheme.colors.primary
                             )
+
+                            if (pageIndex == introItems.lastIndex) {
+                                TextButtonComposable(
+                                    modifier = Modifier.padding(top = 8.dp),
+                                    text = "Get started",
+                                    onClick = { onGetStartedAction() }
+                                )
+                            }
+
                         }
                     }
                 }
@@ -93,7 +101,7 @@ private fun IntroScreenComposable(
                     .padding(all = 16.dp)
                     .align(alignment = Alignment.TopEnd),
                 text = "Skip",
-                onClick = { onClickSkip() }
+                onClick = { onGetStartedAction() }
             )
 
             PagerIndicatorComposable(
@@ -120,6 +128,6 @@ private fun PreviewIntroScreen() {
             IntroItem(title = "Page 3", imageVector = Icons.Filled.Info),
             IntroItem(title = "Page 4", imageVector = Icons.Filled.List)
         ),
-        onClickSkip = {}
+        onGetStartedAction = {}
     )
 }
