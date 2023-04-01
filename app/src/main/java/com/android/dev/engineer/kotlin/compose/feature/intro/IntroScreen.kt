@@ -94,7 +94,6 @@ private fun IntroScreenComposable(
                                     onClick = { onGetStartedAction() }
                                 )
                             }
-
                         }
                     }
                 }

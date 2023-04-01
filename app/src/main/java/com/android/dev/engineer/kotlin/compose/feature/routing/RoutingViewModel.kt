@@ -12,7 +12,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RoutingViewModel @Inject constructor(
-    private val getInitialRouteUseCase: GetInitialRouteUseCase,
+    private val getInitialRouteUseCase: GetInitialRouteUseCase
 ) : ViewModel() {
     private val _effect by lazy { MutableSharedFlow<MainNavGraph>() }
     val effect = _effect.asSharedFlow()
