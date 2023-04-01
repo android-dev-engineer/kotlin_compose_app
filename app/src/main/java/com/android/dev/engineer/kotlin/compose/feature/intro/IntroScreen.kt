@@ -29,9 +29,9 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.android.dev.engineer.kotlin.compose.composable.ButtonComposable
+import com.android.dev.engineer.kotlin.compose.ui.composable.ButtonComposable
 import com.android.dev.engineer.kotlin.compose.composable.PagerIndicatorComposable
-import com.android.dev.engineer.kotlin.compose.composable.TextButtonComposable
+import com.android.dev.engineer.kotlin.compose.ui.composable.TextButtonComposable
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
 import kotlinx.coroutines.flow.collectLatest
