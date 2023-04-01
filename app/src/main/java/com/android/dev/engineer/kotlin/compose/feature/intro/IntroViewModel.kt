@@ -14,14 +14,14 @@ import javax.inject.Inject
 class IntroViewModel @Inject constructor(
     private val markIntroCompleteUseCase: MarkIntroCompleteUseCase
 ) : ViewModel() {
-    private val _effect by lazy { MutableSharedFlow<IntroEffect>() }
+    private val _effect by lazy { MutableSharedFlow<MainNavGraph>() }
     val effect = _effect.asSharedFlow()
 
     fun markIntroComplete() {
         viewModelScope.launch {
             try {
                 markIntroCompleteUseCase.invoke()
-                _effect.emit(IntroEffect.NavigateTo(MainNavGraph.SignIn))
+                _effect.emit(MainNavGraph.SignIn)
             } catch (_: Exception) {
                 // TODO add log
             }
