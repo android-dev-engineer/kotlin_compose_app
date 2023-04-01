@@ -1,4 +1,4 @@
-package com.android.dev.engineer.kotlin.compose
+package com.android.dev.engineer.kotlin.compose.feature.routing
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import com.android.dev.engineer.kotlin.compose.MainActivity
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
-import com.android.dev.engineer.kotlin.compose.feature.routing.RoutingViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 

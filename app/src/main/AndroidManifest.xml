@@ -14,7 +14,7 @@
         android:theme="@style/Theme.KotlinComposeApp"
         tools:targetApi="31">
         <activity
-            android:name=".RoutingActivity"
+            android:name=".feature.routing.RoutingActivity"
             android:exported="true"
             android:theme="@style/Theme.KotlinComposeApp.Splash">
             <intent-filter>
