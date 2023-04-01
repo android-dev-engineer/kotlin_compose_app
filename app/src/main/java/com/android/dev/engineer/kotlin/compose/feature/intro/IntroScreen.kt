@@ -22,6 +22,7 @@ import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.android.dev.engineer.kotlin.compose.composable.ButtonComposable
 import com.android.dev.engineer.kotlin.compose.composable.PagerIndicatorComposable
 import com.android.dev.engineer.kotlin.compose.composable.TextButtonComposable
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
@@ -84,7 +85,7 @@ private fun IntroScreenComposable(
                             )
 
                             if (pageIndex == introItems.lastIndex) {
-                                TextButtonComposable(
+                                ButtonComposable(
                                     modifier = Modifier.padding(top = 8.dp),
                                     text = "Get started",
                                     onClick = { onGetStartedAction() }
