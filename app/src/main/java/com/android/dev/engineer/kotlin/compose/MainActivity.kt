@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.core.os.bundleOf
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,11 +13,20 @@ import com.android.dev.engineer.kotlin.compose.sign_in.SignInScreen
 import com.android.dev.engineer.kotlin.compose.intro.IntroScreen
 
 class MainActivity : ComponentActivity() {
+    companion object {
+        private const val START_DESTINATION_KEY = "start_destination_key"
+
+        fun prepareBundle(startDestination: String): Bundle {
+            return bundleOf(START_DESTINATION_KEY to startDestination)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            // TODO get start destination via bundle
-            MainNavHost(startDestination = MainNavGraph.Intro.route)
+            MainNavHost(
+                startDestination = requireNotNull(intent.extras?.getString(START_DESTINATION_KEY))
+            )
         }
     }
 }
@@ -30,8 +40,8 @@ fun MainNavHost(startDestination: String) {
     ) {
         composable(route = MainNavGraph.Intro.route) {
             IntroScreen(
-                onSkipClicked = {
-                    navController.navigate(it.route) {
+                onSkipClicked = { mainNavGraph ->
+                    navController.navigate(mainNavGraph.route) {
                         popUpTo(route = MainNavGraph.Intro.route) { inclusive = true }
                     }
                 }
