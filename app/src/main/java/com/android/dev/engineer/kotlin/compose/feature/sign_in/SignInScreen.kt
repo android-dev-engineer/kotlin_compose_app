@@ -1,4 +1,4 @@
-package com.android.dev.engineer.kotlin.compose.sign_in
+package com.android.dev.engineer.kotlin.compose.feature.sign_in
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
