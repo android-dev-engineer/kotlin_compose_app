@@ -24,6 +24,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.android.dev.engineer.kotlin.compose.composable.ButtonComposable
 import com.android.dev.engineer.kotlin.compose.composable.PagerIndicatorComposable
+import com.android.dev.engineer.kotlin.compose.composable.TextButtonComposable
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
 import kotlinx.coroutines.launch
@@ -87,7 +88,7 @@ private fun IntroScreenComposable(
                 }
             )
 
-            ButtonComposable(
+            TextButtonComposable(
                 modifier = Modifier
                     .padding(all = 16.dp)
                     .align(alignment = Alignment.TopEnd),

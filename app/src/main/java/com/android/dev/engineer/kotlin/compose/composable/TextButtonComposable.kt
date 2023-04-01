@@ -1,18 +1,18 @@
 package com.android.dev.engineer.kotlin.compose.composable
 
-import androidx.compose.material.Button
 import androidx.compose.material.Text
+import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
-fun ButtonComposable(
+fun TextButtonComposable(
     modifier: Modifier = Modifier,
     text: String,
     onClick: () -> Unit
 ) {
-    Button(
+    TextButton(
         modifier = modifier,
         onClick = onClick
     ) {
@@ -23,7 +23,7 @@ fun ButtonComposable(
 @Preview(showBackground = true)
 @Composable
 private fun PreviewButtonComposable() {
-    ButtonComposable(
+    TextButtonComposable(
         text = "Skip",
         onClick = {}
     )
