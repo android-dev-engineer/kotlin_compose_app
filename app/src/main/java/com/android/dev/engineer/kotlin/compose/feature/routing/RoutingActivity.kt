@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.feature.main.MainActivity
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
@@ -25,7 +26,7 @@ class RoutingActivity : ComponentActivity() {
 
     private fun setUpObservers() {
         lifecycleScope.launch {
-            viewModel.effect.flowWithLifecycle(lifecycle).collect(::updateEffect)
+            viewModel.effect.flowWithLifecycle(lifecycle).collectLatest(::updateEffect)
         }
     }
 
