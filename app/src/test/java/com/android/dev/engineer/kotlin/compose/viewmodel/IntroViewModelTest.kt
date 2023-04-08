@@ -1,7 +1,7 @@
-package com.android.dev.engineer.kotlin.compose.composable.viewmodel
+package com.android.dev.engineer.kotlin.compose.viewmodel
 
-import com.android.dev.engineer.kotlin.compose.composable.coroutines.MainTestRule
-import com.android.dev.engineer.kotlin.compose.composable.fake.MarkIntroCompleteUseFake
+import com.android.dev.engineer.kotlin.compose.coroutines.MainTestRule
+import com.android.dev.engineer.kotlin.compose.fake.MarkIntroCompleteUseFake
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.feature.intro.IntroViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
