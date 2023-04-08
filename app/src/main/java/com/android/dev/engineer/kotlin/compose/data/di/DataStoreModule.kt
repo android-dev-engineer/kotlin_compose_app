@@ -33,8 +33,8 @@ object DataStoreModule {
     @Singleton
     @Provides
     fun provideAppPrefsDataStore(
-        @DataStoreCoroutineScope coroutineScope: CoroutineScope,
-        @ApplicationContext appContext: Context
+        @ApplicationContext appContext: Context,
+        @DataStoreCoroutineScope coroutineScope: CoroutineScope
     ): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
             scope = coroutineScope,
