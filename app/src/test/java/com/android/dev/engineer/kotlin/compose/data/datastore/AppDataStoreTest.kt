@@ -4,9 +4,10 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.test.core.app.ApplicationProvider
 import com.android.dev.engineer.kotlin.compose.coroutines.MainTestRule
+import com.android.dev.engineer.kotlin.compose.data.di.DataStoreModule.provideAppPrefsDataStore
 import com.android.dev.engineer.kotlin.compose.data.local.AppDataStore
 import com.android.dev.engineer.kotlin.compose.data.local.AppDataStoreImpl
-import com.android.dev.engineer.kotlin.compose.util.DataStoreModuleUtil.provideAppPrefsDataStoreTest
+import com.android.dev.engineer.kotlin.compose.util.CoroutineScopeUtil.createDataSourceCoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
@@ -27,9 +28,9 @@ class AppDataStoreTest {
 
     @Before
     fun setUp() {
-        dataStore = provideAppPrefsDataStoreTest(
+        dataStore = provideAppPrefsDataStore(
             appContext = ApplicationProvider.getApplicationContext(),
-            coroutineScope = mainTestRule.testScope
+            coroutineScope = createDataSourceCoroutineScope(testScope = mainTestRule.testScope)
         )
         appDataStore = AppDataStoreImpl(dataStore = dataStore)
     }
