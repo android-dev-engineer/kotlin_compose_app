@@ -80,4 +80,8 @@ dependencies {
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // Coroutines: https://developer.android.com/kotlin/coroutines/test
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    testImplementation "junit:junit:4.13.2"
 }
