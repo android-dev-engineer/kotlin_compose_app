@@ -1,4 +1,4 @@
-package com.android.dev.engineer.kotlin.compose.composable
+package com.android.dev.engineer.kotlin.compose.use_case
 
 import com.android.dev.engineer.kotlin.compose.composable.coroutines.MainTestRule
 import com.android.dev.engineer.kotlin.compose.composable.fake.AppDataStoreFake
