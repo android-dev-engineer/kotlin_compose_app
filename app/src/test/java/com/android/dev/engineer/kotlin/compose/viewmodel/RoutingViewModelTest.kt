@@ -41,7 +41,7 @@ class RoutingViewModelTest {
 
     @Test
     fun `test when initial navigation fails and redirect to sign in`() = runTest {
-        getInitialRouteUseCase.exception = Exception()
+        getInitialRouteUseCase.error = Exception()
         assertEquals(MainNavGraph.SignIn, viewModel.effect.first())
     }
 }

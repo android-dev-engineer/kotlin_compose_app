@@ -4,8 +4,10 @@ import com.android.dev.engineer.kotlin.compose.data.use_case.mark_intro.MarkIntr
 
 class MarkIntroCompleteUseFake : MarkIntroCompleteUseCase {
     var markIntroComplete = false
+    var error: Exception? = null
 
     override suspend fun invoke() {
+        error?.let { throw it }
         markIntroComplete = true
     }
 }

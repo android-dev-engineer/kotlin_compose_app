@@ -5,10 +5,10 @@ import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetIn
 
 class GetInitialRouteUseCaseFake : GetInitialRouteUseCase {
     lateinit var mainNavGraph: MainNavGraph
-    var exception: Exception? = null
+    var error: Exception? = null
 
     override suspend fun invoke(): MainNavGraph {
-        throw checkNotNull(exception) {
+        throw checkNotNull(error) {
             return mainNavGraph
         }
     }
