@@ -26,10 +26,18 @@ class IntroViewModelTest {
     }
 
     @Test
-    fun `test mark intro as complete`() = runTest {
+    fun `test mark intro as complete and move to sign in`() = runTest {
         markIntroCompleteUseCase.markIntroComplete = false
         viewModel.markIntroComplete()
         assertEquals(MainNavGraph.SignIn, viewModel.effect.first())
         assertEquals(true, markIntroCompleteUseCase.markIntroComplete)
+    }
+
+    @Test
+    fun `test mark intro failure and move to sign in`() = runTest {
+        markIntroCompleteUseCase.error = Exception()
+        viewModel.markIntroComplete()
+        assertEquals(MainNavGraph.SignIn, viewModel.effect.first())
+        assertEquals(false, markIntroCompleteUseCase.markIntroComplete)
     }
 }
