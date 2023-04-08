@@ -1,21 +1,18 @@
 package com.android.dev.engineer.kotlin.compose.data.use_case
 
-import com.android.dev.engineer.kotlin.compose.coroutines.MainTestRule
-import com.android.dev.engineer.kotlin.compose.fake.AppDataStoreFake
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetInitialRouteUseCase
 import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetInitialRouteUseCaseImpl
+import com.android.dev.engineer.kotlin.compose.fake.AppDataStoreFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
 class GetInitialRouteUseCaseTest {
-    @get:Rule
-    val mainTestRule: MainTestRule = MainTestRule()
     private lateinit var appDataStore: AppDataStoreFake
     private lateinit var getInitialRouteUseCase: GetInitialRouteUseCase
 
@@ -23,7 +20,7 @@ class GetInitialRouteUseCaseTest {
     fun setUp() {
         appDataStore = AppDataStoreFake()
         getInitialRouteUseCase = GetInitialRouteUseCaseImpl(
-            dispatcher = mainTestRule.testDispatcher,
+            dispatcher = UnconfinedTestDispatcher(),
             appDataStore = appDataStore
         )
     }
