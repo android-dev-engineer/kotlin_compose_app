@@ -9,3 +9,6 @@ annotation class IoDispatcher
 @Qualifier
 @Retention(AnnotationRetention.BINARY)
 annotation class AppPrefs
+
+@Retention(AnnotationRetention.BINARY)
+annotation class DataStoreCoroutineScope
