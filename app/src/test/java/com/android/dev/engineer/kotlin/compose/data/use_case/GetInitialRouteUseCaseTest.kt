@@ -1,7 +1,7 @@
-package com.android.dev.engineer.kotlin.compose.use_case
+package com.android.dev.engineer.kotlin.compose.data.use_case
 
-import com.android.dev.engineer.kotlin.compose.composable.coroutines.MainTestRule
-import com.android.dev.engineer.kotlin.compose.composable.fake.AppDataStoreFake
+import com.android.dev.engineer.kotlin.compose.coroutines.MainTestRule
+import com.android.dev.engineer.kotlin.compose.fake.AppDataStoreFake
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetInitialRouteUseCase
 import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetInitialRouteUseCaseImpl
