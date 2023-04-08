@@ -40,6 +40,7 @@ class RoutingViewModel @Inject constructor(
                 _effect.emit(mainNavGraph)
             } catch (ex: Exception) {
                 // TODO add log
+                _effect.emit(MainNavGraph.SignIn)
             }
         }
     }
