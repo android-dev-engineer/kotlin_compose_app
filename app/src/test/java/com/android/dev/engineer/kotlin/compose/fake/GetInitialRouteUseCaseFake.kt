@@ -8,8 +8,7 @@ class GetInitialRouteUseCaseFake : GetInitialRouteUseCase {
     var error: Exception? = null
 
     override suspend fun invoke(): MainNavGraph {
-        throw checkNotNull(error) {
-            return mainNavGraph
-        }
+        error?.let { throw it }
+        return mainNavGraph
     }
 }
