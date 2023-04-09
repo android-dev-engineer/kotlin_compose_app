@@ -1,7 +1,7 @@
 package com.android.dev.engineer.kotlin.compose.test.viewmodel
 
 import com.android.dev.engineer.kotlin.compose.coroutines.MainTestRule
-import com.android.dev.engineer.kotlin.compose.fake.MarkIntroCompleteUseFake
+import com.android.dev.engineer.kotlin.compose.fake.MarkIntroCompleteUseCaseFake
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.feature.intro.IntroViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -16,12 +16,12 @@ import org.junit.Test
 class IntroViewModelTest {
     @get:Rule
     val mainTestRule: MainTestRule = MainTestRule()
-    private lateinit var markIntroCompleteUseCase: MarkIntroCompleteUseFake
+    private lateinit var markIntroCompleteUseCase: MarkIntroCompleteUseCaseFake
     private lateinit var viewModel: IntroViewModel
 
     @Before
     fun setUp() {
-        markIntroCompleteUseCase = MarkIntroCompleteUseFake()
+        markIntroCompleteUseCase = MarkIntroCompleteUseCaseFake()
         viewModel = IntroViewModel(markIntroCompleteUseCase = markIntroCompleteUseCase)
     }
 
