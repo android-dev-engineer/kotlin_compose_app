@@ -1,4 +1,4 @@
-package com.android.dev.engineer.kotlin.compose.viewmodel
+package com.android.dev.engineer.kotlin.compose.test.viewmodel
 
 import com.android.dev.engineer.kotlin.compose.coroutines.MainTestRule
 import com.android.dev.engineer.kotlin.compose.fake.GetInitialRouteUseCaseFake

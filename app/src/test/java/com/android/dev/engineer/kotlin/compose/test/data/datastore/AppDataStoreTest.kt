@@ -1,4 +1,4 @@
-package com.android.dev.engineer.kotlin.compose.data.datastore
+package com.android.dev.engineer.kotlin.compose.test.data.datastore
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -10,6 +10,7 @@ import com.android.dev.engineer.kotlin.compose.util.CoroutineScopeUtil.createDat
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith

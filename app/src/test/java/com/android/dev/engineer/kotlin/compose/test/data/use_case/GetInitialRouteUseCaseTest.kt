@@ -1,4 +1,4 @@
-package com.android.dev.engineer.kotlin.compose.data.use_case
+package com.android.dev.engineer.kotlin.compose.test.data.use_case
 
 import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetInitialRouteUseCase
