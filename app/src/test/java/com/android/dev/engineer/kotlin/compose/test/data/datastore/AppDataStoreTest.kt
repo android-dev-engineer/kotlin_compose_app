@@ -6,11 +6,11 @@ import androidx.test.core.app.ApplicationProvider
 import com.android.dev.engineer.kotlin.compose.data.di.DataStoreModule.provideAppPrefsDataStore
 import com.android.dev.engineer.kotlin.compose.data.local.AppDataStore
 import com.android.dev.engineer.kotlin.compose.data.local.AppDataStoreImpl
-import com.android.dev.engineer.kotlin.compose.util.CoroutineScopeUtil.createDataSourceCoroutineScope
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestScope
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,16 +19,16 @@ import org.robolectric.RobolectricTestRunner
 @ExperimentalCoroutinesApi
 @RunWith(RobolectricTestRunner::class)
 class AppDataStoreTest {
-    private lateinit var dataStore: DataStore<Preferences>
+    private lateinit var appPrefsDataStore: DataStore<Preferences>
     private lateinit var appDataStore: AppDataStore
 
     @Before
     fun setUp() {
-        dataStore = provideAppPrefsDataStore(
+        appPrefsDataStore = provideAppPrefsDataStore(
             appContext = ApplicationProvider.getApplicationContext(),
-            coroutineScope = createDataSourceCoroutineScope()
+            coroutineScope = TestScope(UnconfinedTestDispatcher())
         )
-        appDataStore = AppDataStoreImpl(dataStore = dataStore)
+        appDataStore = AppDataStoreImpl(dataStore = appPrefsDataStore)
     }
 
     @Test
