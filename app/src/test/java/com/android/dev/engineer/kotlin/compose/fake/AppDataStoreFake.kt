@@ -4,7 +4,7 @@ import com.android.dev.engineer.kotlin.compose.data.local.AppDataStore
 
 class AppDataStoreFake : AppDataStore {
     var markIntroComplete: Boolean = false
-    var isIntroPending = false
+    var isIntroPending = true
 
     override suspend fun isIntroPending(): Boolean {
         return isIntroPending
