@@ -26,8 +26,8 @@ class MarkIntroCompleteUseCaseTest {
 
     @Test
     fun `test mark intro is updated`() = runTest {
-        assertEquals(false, appDataStore.markIntroComplete)
+        assertEquals(true, appDataStore.isIntroPending)
         markIntroCompleteUseCase.invoke()
-        assertEquals(true, appDataStore.markIntroComplete)
+        assertEquals(false, appDataStore.isIntroPending)
     }
 }
