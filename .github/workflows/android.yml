@@ -95,7 +95,7 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          profile: Pixel 4
+          profile: Pixel 4 # Android SDK Command-Line Tools: https://developer.android.com/tools#tools-sdk
           ram-size: 8192M
           emulator-build: 9751036 # Emulator build version: https://developer.android.com/studio/emulator_archive
           force-avd-creation: false
