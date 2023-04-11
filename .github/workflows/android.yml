@@ -33,7 +33,6 @@ jobs:
           path: "**/build/reports/ktLint/ktlintMainSourceSetCheck.*"
 
   unit_tests:
-    needs: code_linting
     runs-on: ubuntu-latest
     steps:
       - name: checkout project sources
@@ -82,7 +81,7 @@ jobs:
           check-latest: true
           cache: gradle
 
-      - name: AVD cache
+      - name: avd cache
         uses: actions/cache@v3
         id: avd-cache
         with:
@@ -91,14 +90,17 @@ jobs:
             ~/.android/adb*
           key: avd-${{ matrix.api-level }}
 
-      - name: create AVD and generate snapshot for caching
+      - name: create avd and generate snapshot for caching
         if: steps.avd-cache.outputs.cache-hit != 'true'
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
+          profile: Pixel 4
+          ram-size: 8192M
+          emulator-build: 9751036 # Emulator build version: https://developer.android.com/studio/emulator_archive
           force-avd-creation: false
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          disable-animations: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none # Emulator options reference: https://developer.android.com/studio/run/emulator-commandline
+          disable-animations: true
           script: echo "generated avd snapshot for caching."
 
       - name: run ui tests
@@ -107,14 +109,11 @@ jobs:
           api-level: ${{ matrix.api-level }}
           profile: Pixel 4
           ram-size: 8192M
-          # Emulator build version: https://developer.android.com/studio/emulator_archive
           emulator-build: 9751036
           force-avd-creation: false
-          # Emulator options reference: https://developer.android.com/studio/run/emulator-commandline
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true
-          # Run ui tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
-          script: ./gradlew connectedDebugAndroidTest
+          script: ./gradlew connectedDebugAndroidTest # Run ui tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
 
       - name: archive ui test reports on failure
         uses: actions/upload-artifact@v3
