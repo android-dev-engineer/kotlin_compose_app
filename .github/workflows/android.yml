@@ -101,7 +101,7 @@ jobs:
           disable-animations: false
           script: echo "generated avd snapshot for caching."
 
-      - name: run tests
+      - name: run ui tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
