@@ -62,21 +62,13 @@ jobs:
     runs-on: macos-latest
     strategy:
       matrix:
-        api-level: [ 29 ]
-        target: [ google_apis ]
+        api-level: [ 23, 26, 29 ]
     steps:
       - name: checkout project sources
         uses: actions/checkout@v3
 
       - name: validate gradle wrapper
         uses: gradle/wrapper-validation-action@v1
-
-      - name: set up JDK 11
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '11'
-          cache: gradle
 
       - name: avd cache
         uses: actions/cache@v3
@@ -92,21 +84,22 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          profile: Pixel 4 # Android SDK Command-Line Tools: https://developer.android.com/tools#tools-sdk
-          ram-size: 8192M
-          emulator-build: 9751036 # Emulator build version: https://developer.android.com/studio/emulator_archive
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none # Emulator options reference: https://developer.android.com/studio/run/emulator-commandline
           disable-animations: true
           script: echo "generated avd snapshot for caching."
 
+      - name: set up JDK 11
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+          cache: gradle
+
       - name: run ui tests
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          profile: Pixel 4
-          ram-size: 8192M
-          emulator-build: 9751036
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           disable-animations: true

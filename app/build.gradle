@@ -36,6 +36,13 @@ android {
         jvmTarget = JavaVersion.VERSION_11
     }
 
+    // Required for Gradle 8.x updated: : https://docs.gradle.org/current/userguide/upgrading_version_7.html#potential_breaking_changes_2
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile) {
+        kotlinOptions {
+            jvmTarget = JavaVersion.VERSION_11
+        }
+    }
+
     buildFeatures {
         compose true
     }
