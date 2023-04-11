@@ -7,10 +7,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MarkIntroCompleteUseCaseImpl @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
     private val appDataStore: AppDataStore
 ) : MarkIntroCompleteUseCase {
-    override suspend fun invoke() = withContext(ioDispatcher) {
+    override suspend fun invoke() = withContext(dispatcher) {
         appDataStore.markIntroComplete()
     }
 }

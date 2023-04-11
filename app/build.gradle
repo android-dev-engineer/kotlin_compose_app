@@ -44,6 +44,13 @@ android {
         kotlinCompilerExtensionVersion '1.4.4'
     }
 
+    testOptions {
+        unitTests {
+            // Robolectric config: https://robolectric.org/getting-started
+            includeAndroidResources = true
+        }
+    }
+
     packagingOptions {
         resources {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
@@ -80,4 +87,10 @@ dependencies {
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
+
+    // Coroutines: https://developer.android.com/kotlin/coroutines/test
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    testImplementation "junit:junit:4.13.2"
+    testImplementation 'org.robolectric:robolectric:4.9.2'
+    testImplementation 'androidx.test:core-ktx:1.5.0'
 }
