@@ -52,7 +52,11 @@
       "matchPackagePatterns": [
         "com.google.truth:truth",
         "androidx.compose.ui:ui-test-junit4",
-        "androidx.compose.ui:ui-test-manifest"
+        "androidx.compose.ui:ui-test-manifest",
+        "org.robolectric:robolectric",
+        "junit:junit",
+        "androidx.test:core-ktx",
+        "org.jetbrains.kotlinx:kotlinx-coroutines-test"
       ]
     }
   ]
