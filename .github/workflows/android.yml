@@ -19,7 +19,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-          check-latest: true
           cache: gradle
 
       # KtLint
@@ -46,7 +45,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-          check-latest: true
           cache: gradle
 
       # Run unit tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
@@ -78,7 +76,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-          check-latest: true
           cache: gradle
 
       - name: avd cache
