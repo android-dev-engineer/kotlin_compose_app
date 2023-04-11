@@ -8,10 +8,10 @@ import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class GetInitialRouteUseCaseImpl @Inject constructor(
-    @IoDispatcher private val ioDispatcher: CoroutineDispatcher,
+    @IoDispatcher private val dispatcher: CoroutineDispatcher,
     private val appDataStore: AppDataStore
 ) : GetInitialRouteUseCase {
-    override suspend fun invoke(): MainNavGraph = withContext(ioDispatcher) {
+    override suspend fun invoke(): MainNavGraph = withContext(dispatcher) {
         if (appDataStore.isIntroPending()) {
             MainNavGraph.Intro
         } else {

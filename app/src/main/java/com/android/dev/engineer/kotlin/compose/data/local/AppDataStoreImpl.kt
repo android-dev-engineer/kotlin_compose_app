@@ -18,15 +18,15 @@ class AppDataStoreImpl @Inject constructor(
 
     private val introKey by lazy { booleanPreferencesKey(name = APP_INTRO_KEY) }
 
-    override suspend fun markIntroComplete() {
-        dataStore.edit { preferences ->
-            preferences[introKey] = false
-        }
-    }
-
     override suspend fun isIntroPending(): Boolean {
         return dataStore.data.map { preferences ->
             preferences[introKey] ?: true
         }.first()
+    }
+
+    override suspend fun markIntroComplete() {
+        dataStore.edit { preferences ->
+            preferences[introKey] = false
+        }
     }
 }

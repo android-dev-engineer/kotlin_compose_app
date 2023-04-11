@@ -12,16 +12,32 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object DataStoreModule {
+    @DataStoreCoroutineScope
+    @Singleton
+    @Provides
+    fun provideDataSoreCoroutineScope(
+        @IoDispatcher ioDispatcher: CoroutineDispatcher
+    ): CoroutineScope {
+        return CoroutineScope(ioDispatcher + SupervisorJob())
+    }
+
     @AppPrefs
     @Singleton
     @Provides
-    fun providePreferencesDataStore(@ApplicationContext appContext: Context): DataStore<Preferences> {
+    fun provideAppPrefsDataStore(
+        @ApplicationContext appContext: Context,
+        @DataStoreCoroutineScope coroutineScope: CoroutineScope
+    ): DataStore<Preferences> {
         return PreferenceDataStoreFactory.create(
+            scope = coroutineScope,
             produceFile = { appContext.preferencesDataStoreFile(AppDataStore.APP_DATASTORE_KEY) }
         )
     }

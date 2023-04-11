@@ -1,5 +1,9 @@
 # Kotlin Compose App
 
+## Youtube Channel available
+
+- Please check out my [Youtube channel](https://www.youtube.com/channel/UCTCKeZVUQVEbjoyPdlI-pFw).
+
 ## [KtLint](https://github.com/JLLeitschuh/ktlint-gradle)
 
 - Static code analysis tool for Kotlin which `code style`, `code formatting` and `code convention`.
