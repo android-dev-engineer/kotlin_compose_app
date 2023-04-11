@@ -54,7 +54,7 @@ jobs:
       - name: run unit tests
         run: ./gradlew testDebugUnitTest
 
-      - name: archive unit tests
+      - name: archive unit tests on failure
         uses: actions/upload-artifact@v3
         if: failure()
         with:
@@ -116,7 +116,7 @@ jobs:
           # Run ui tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
           script: ./gradlew connectedDebugAndroidTest
 
-      - name: archive ui test reports
+      - name: archive ui test reports on failure
         uses: actions/upload-artifact@v3
         if: failure()
         with:
