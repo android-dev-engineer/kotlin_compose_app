@@ -83,7 +83,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           avd-name: test-device
           force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none # Emulator options reference: https://developer.android.com/studio/run/emulator-commandline
           disable-animations: true
           script: ./gradlew connectedDebugAndroidTest # Run ui tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
 
