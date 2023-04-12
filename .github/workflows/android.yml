@@ -77,13 +77,31 @@ jobs:
           java-version: '11'
           cache: gradle
 
-      - name: run ui tests
-        uses: reactivecircus/android-emulator-runner@v2.25.0
+      - name: avd cache
+        uses: actions/cache@v3
+        id: avd-cache
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-${{ matrix.api-level }}
+
+      - name: create avd and generate snapshot for caching
+        if: steps.avd-cache.outputs.cache-hit != 'true'
+        uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          avd-name: test-device
           force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none # Emulator options reference: https://developer.android.com/studio/run/emulator-commandline
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -wipe-data # Emulator options reference: https://developer.android.com/studio/run/emulator-commandline
+          disable-animations: true
+          script: echo "generated avd snapshot for caching."
+
+      - name: run ui tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ matrix.api-level }}
+          force-avd-creation: false
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -wipe-data
           disable-animations: true
           script: ./gradlew connectedDebugAndroidTest # Run ui tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
 
