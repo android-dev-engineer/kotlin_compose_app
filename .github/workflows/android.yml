@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu' # Supported distributions: https://github.com/actions/setup-java#supported-distributions
-          java-version: '11'
+          java-version: '19'
           cache: gradle
 
       # KtLint
