@@ -32,6 +32,6 @@ subprojects {
 // Gradle wrapper: https://docs.gradle.org/current/userguide/gradle_wrapper.html#customizing_wrapper
 tasks.named('wrapper') {
     description = "Gradle wrapper task to update binary"
-    gradleVersion = "8.0.2"
+    gradleVersion = "8.1"
     distributionType = Wrapper.DistributionType.BIN
 }
