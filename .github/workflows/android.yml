@@ -91,9 +91,6 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
-          force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -wipe-data # Emulator options reference: https://developer.android.com/studio/run/emulator-commandline
-          disable-animations: true
           script: echo "generated avd snapshot for caching."
 
       - name: run ui tests
@@ -101,7 +98,7 @@ jobs:
         with:
           api-level: ${{ matrix.api-level }}
           force-avd-creation: false
-          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -wipe-data
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -wipe-data # Emulator options reference: https://developer.android.com/studio/run/emulator-commandline
           disable-animations: true
           script: ./gradlew connectedDebugAndroidTest # Run ui tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
 
