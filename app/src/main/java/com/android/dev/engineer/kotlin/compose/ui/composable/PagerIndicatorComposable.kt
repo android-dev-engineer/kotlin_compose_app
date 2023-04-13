@@ -1,4 +1,4 @@
-package com.android.dev.engineer.kotlin.compose.composable
+package com.android.dev.engineer.kotlin.compose.ui.composable
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
