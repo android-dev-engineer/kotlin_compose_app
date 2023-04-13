@@ -32,6 +32,17 @@ jobs:
           name: code_linting
           path: "**/build/reports/ktLint"
 
+      # Detekt
+      - name: run detekt
+        run: ./gradlew detekt
+
+      - name: archive detekt reports on failure
+        uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: code_linting
+          path: "**/build/reports/detekt/*.html"
+
   unit_tests:
     runs-on: ubuntu-latest
     steps:
