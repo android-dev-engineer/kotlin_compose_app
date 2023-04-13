@@ -18,7 +18,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu' # Supported distributions: https://github.com/actions/setup-java#supported-distributions
-          java-version: '19'
+          java-version: '20'
           cache: gradle
 
       # KtLint
@@ -45,7 +45,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '19'
+          java-version: '20'
           cache: gradle
 
       # Run unit tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
@@ -75,7 +75,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'zulu'
-          java-version: '19'
+          java-version: '20'
           cache: gradle
 
       - name: avd cache
