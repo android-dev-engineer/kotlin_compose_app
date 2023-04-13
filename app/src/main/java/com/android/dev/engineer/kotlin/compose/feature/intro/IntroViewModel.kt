@@ -21,7 +21,7 @@ class IntroViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 markIntroCompleteUseCase.invoke()
-            } catch (ex: Exception) {
+            } catch (_: Exception) {
                 // TODO add log
             } finally {
                 _effect.emit(MainNavGraph.SignIn)
