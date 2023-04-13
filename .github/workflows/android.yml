@@ -35,7 +35,7 @@ jobs:
       # Detekt
       - name: run detekt
         run: ./gradlew detekt
-        if: !cancelled()
+        if: success() || failure()
 
       - name: archive detekt reports on failure
         uses: actions/upload-artifact@v3
