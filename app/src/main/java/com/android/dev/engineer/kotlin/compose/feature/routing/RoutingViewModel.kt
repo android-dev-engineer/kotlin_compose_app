@@ -38,7 +38,7 @@ class RoutingViewModel @Inject constructor(
                 }
                 delay(ROUTING_DELAY - duration.inWholeMilliseconds)
                 _effect.emit(mainNavGraph)
-            } catch (ex: Exception) {
+            } catch (_: Exception) {
                 // TODO add log
                 _effect.emit(MainNavGraph.SignIn)
             }
