@@ -9,7 +9,7 @@ import javax.inject.Inject
 class MarkIntroCompleteUseCaseImpl @Inject constructor(
     @IoDispatcher private val dispatcher: CoroutineDispatcher,
     private val appDataStore: AppDataStore
-) : MarkIntroCompleteUseCase {
+): MarkIntroCompleteUseCase {
     override suspend fun invoke() = withContext(dispatcher) {
         appDataStore.markIntroComplete()
     }
