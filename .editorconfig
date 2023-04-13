@@ -1,7 +1,7 @@
 # Rules: https://pinterest.github.io/ktlint/rules/configuration-ktlint
 [*.{kt,kts}]
 insert_final_newline = false
-max_line_length = 250
+max_line_length = off # Check detekt.yml file, ref.: https://detekt.dev/docs/rules/style/#maxlinelength
 # Disable rules: https://pinterest.github.io/ktlint/rules/configuration-ktlint/#disabled-rules
 ktlint_standard_no-wildcard-imports = disabled
 ktlint_standard_import-ordering = disabled
