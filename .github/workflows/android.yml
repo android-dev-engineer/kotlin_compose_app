@@ -30,7 +30,7 @@ jobs:
         if: failure()
         with:
           name: code_linting
-          path: "**/build/reports/ktLint"
+          path: "**/build/reports/ktLint/**/*.html"
 
       # Detekt
       - name: run detekt
