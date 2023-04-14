@@ -1,6 +1,8 @@
 name: android ci
 
 on:
+  push:
+    branches: [ "main" ]
   pull_request:
     branches: [ "develop" ]
 
@@ -19,7 +21,9 @@ jobs:
         with:
           distribution: 'zulu' # Supported distributions: https://github.com/actions/setup-java#supported-distributions
           java-version: '20'
-          cache: gradle
+
+      - name: setup gradle
+        uses: gradle/gradle-build-action@v2
 
       # KtLint
       - name: run ktlintCheck
@@ -46,7 +50,9 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '20'
-          cache: gradle
+
+      - name: setup gradle
+        uses: gradle/gradle-build-action@v2
 
       # Run unit tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
       - name: run unit tests
@@ -76,7 +82,9 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '20'
-          cache: gradle
+
+      - name: setup gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: avd cache
         uses: actions/cache@v3
