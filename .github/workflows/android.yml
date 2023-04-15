@@ -28,7 +28,6 @@ jobs:
       # KtLint
       - name: run ktlintCheck
         run: ./gradlew ktlintCheck
-        if: success() || failure()
 
       - name: archive ktLint reports on failure
         uses: actions/upload-artifact@v3
