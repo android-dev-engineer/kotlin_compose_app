@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class AppDataStoreImpl @Inject constructor(
     @AppPrefs private val dataStore: DataStore<Preferences>
-): AppDataStore {
+) : AppDataStore {
     companion object {
         private const val APP_INTRO_KEY = "app_intro_key"
     }
