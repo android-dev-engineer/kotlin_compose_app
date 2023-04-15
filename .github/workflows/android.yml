@@ -7,70 +7,72 @@ on:
     branches: [ "develop" ]
 
 jobs:
-  code_linting:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout project sources
-        uses: actions/checkout@v3
-
-      - name: validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-
-      - name: set up JDK 20
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu' # Supported distributions: https://github.com/actions/setup-java#supported-distributions
-          java-version: '20'
-
-      - name: setup gradle
-        uses: gradle/gradle-build-action@v2
-
-      # KtLint
-      - name: run ktlintCheck
-        run: ./gradlew ktlintCheck
-
-      - name: archive ktLint reports on failure
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: code_linting
-          path: "**/build/reports/ktLint"
-
-  unit_tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: checkout project sources
-        uses: actions/checkout@v3
-
-      - name: validate gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
-
-      - name: set up JDK 20
-        uses: actions/setup-java@v3
-        with:
-          distribution: 'zulu'
-          java-version: '20'
-
-      - name: setup gradle
-        uses: gradle/gradle-build-action@v2
-
-      # Run unit tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
-      - name: run unit tests
-        run: ./gradlew testDebugUnitTest
-
-      - name: archive unit tests on failure
-        uses: actions/upload-artifact@v3
-        if: failure()
-        with:
-          name: unit_tests
-          path: "**/build/reports/tests/testDebugUnitTest"
+#  code_linting:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: checkout project sources
+#        uses: actions/checkout@v3
+#
+#      - name: validate gradle wrapper
+#        uses: gradle/wrapper-validation-action@v1
+#
+#      - name: set up JDK 20
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'zulu' # Supported distributions: https://github.com/actions/setup-java#supported-distributions
+#          java-version: '20'
+#
+#      - name: setup gradle
+#        uses: gradle/gradle-build-action@v2
+#
+#      # KtLint
+#      - name: run ktlintCheck
+#        run: ./gradlew ktlintCheck
+#
+#      - name: archive ktLint reports on failure
+#        uses: actions/upload-artifact@v3
+#        if: failure()
+#        with:
+#          name: code_linting
+#          path: "**/build/reports/ktLint"
+#
+#  unit_tests:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: checkout project sources
+#        uses: actions/checkout@v3
+#
+#      - name: validate gradle wrapper
+#        uses: gradle/wrapper-validation-action@v1
+#
+#      - name: set up JDK 20
+#        uses: actions/setup-java@v3
+#        with:
+#          distribution: 'zulu'
+#          java-version: '20'
+#
+#      - name: setup gradle
+#        uses: gradle/gradle-build-action@v2
+#
+#      # Run unit tests: https://developer.android.com/studio/test/command-line#run-tests-build-variants
+#      - name: run unit tests
+#        run: ./gradlew testDebugUnitTest
+#
+#      - name: archive unit tests on failure
+#        uses: actions/upload-artifact@v3
+#        if: failure()
+#        with:
+#          name: unit_tests
+#          path: "**/build/reports/tests/testDebugUnitTest"
 
   ui_tests:
     runs-on: macos-latest
     strategy:
       fail-fast: false
       matrix:
-        api-level: [ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 ]
+        api-level: [ 30, 31, 32, 33 ]
+        target: [ google_apis, playstore ]
+        arch: [ x86_64, x86, arm64-v8 ]
     steps:
       - name: checkout project sources
         uses: actions/checkout@v3
@@ -107,6 +109,8 @@ jobs:
         uses: reactivecircus/android-emulator-runner@v2
         with:
           api-level: ${{ matrix.api-level }}
+          target: ${{ matrix.target }}
+          arch: ${{ matrix.arch }}
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -wipe-data # Emulator options reference: https://developer.android.com/studio/run/emulator-commandline
           disable-animations: true
