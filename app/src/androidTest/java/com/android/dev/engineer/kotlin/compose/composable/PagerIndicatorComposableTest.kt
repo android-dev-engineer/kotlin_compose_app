@@ -15,6 +15,7 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.compose.ui.unit.dp
 import com.android.dev.engineer.kotlin.compose.R
+import com.android.dev.engineer.kotlin.compose.ui.composable.PagerIndicatorComposable
 import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
 import com.android.dev.engineer.kotlin.compose.utils.assertHasModifier
 import org.junit.Rule

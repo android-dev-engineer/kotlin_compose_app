@@ -1,0 +1,33 @@
+# Rules: https://github.com/detekt/detekt/blob/main/detekt-core/src/main/resources/default-detekt-config.yml
+# Compose: https://detekt.dev/docs/introduction/compose
+style:
+  NewLineAtEndOfFile:
+    active: false
+  WildcardImport:
+    active: false
+  MaxLineLength:
+    active: true
+    maxLineLength: 250
+  MagicNumber:
+    active: true
+    ignorePropertyDeclaration: true
+  UnusedPrivateMember:
+    active: true
+    ignoreAnnotated: [ 'Preview' ]
+
+complexity:
+  LongParameterList:
+    active: true
+    ignoreAnnotated: [ 'Composable' ]
+  LongMethod:
+    active: true
+    ignoreAnnotated: [ 'Composable' ]
+
+naming:
+  PackageNaming:
+    active: true
+    packagePattern: '([a-z]+(\.[a-z][a-z_]*)*)'
+  FunctionNaming:
+    active: true
+    functionPattern: '[a-zA-Z][a-zA-Z]*'
+    ignoreAnnotated: [ 'Composable' ]
