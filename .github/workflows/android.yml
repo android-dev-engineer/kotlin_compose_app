@@ -68,8 +68,9 @@ jobs:
   ui_tests:
     runs-on: macos-latest
     strategy:
+      fail-fast: false
       matrix:
-        api-level: [ 23, 26, 29, 30, 31 ]
+        api-level: [ 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33 ]
     steps:
       - name: checkout project sources
         uses: actions/checkout@v3
