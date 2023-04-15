@@ -9,8 +9,6 @@ on:
 jobs:
   code_linting:
     runs-on: ubuntu-latest
-    strategy:
-      fail-fast: false
     steps:
       - name: checkout project sources
         uses: actions/checkout@v3
@@ -30,6 +28,7 @@ jobs:
       # KtLint
       - name: run ktlintCheck
         run: ./gradlew ktlintCheck
+        if: success() || failure()
 
       - name: archive ktLint reports on failure
         uses: actions/upload-artifact@v3
@@ -41,6 +40,7 @@ jobs:
       # Detekt
       - name: run detekt
         run: ./gradlew detekt
+        if: success() || failure()
 
       - name: archive detekt reports on failure
         uses: actions/upload-artifact@v3
