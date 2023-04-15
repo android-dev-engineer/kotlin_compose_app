@@ -72,7 +72,8 @@ jobs:
       matrix:
         api-level: [ 30, 31, 32, 33 ]
         target: [ google_apis, playstore ]
-        arch: [ x86_64, x86, arm64-v8 ]
+        arch: [ x86_64, x86, arm64-v8, aosp_atd, google_atd ]
+        channel: [ stable, beta, dev, canary ]
     steps:
       - name: checkout project sources
         uses: actions/checkout@v3
@@ -111,6 +112,7 @@ jobs:
           api-level: ${{ matrix.api-level }}
           target: ${{ matrix.target }}
           arch: ${{ matrix.arch }}
+          channel: ${{ matrix.channel }}
           force-avd-creation: false
           emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none -wipe-data # Emulator options reference: https://developer.android.com/studio/run/emulator-commandline
           disable-animations: true
