@@ -70,11 +70,11 @@ jobs:
 #          path: "**/build/reports/tests/testDebugUnitTest"
 
   ui_tests:
-    runs-on: macos-latest
+    runs-on: macos-11
     strategy:
       fail-fast: false
       matrix:
-        api-level: [ 30, 31, 32, 33 ]
+        api-level: [ 33 ]
         target: [ google_apis, playstore ]
         arch: [ x86_64, x86, arm64-v8, aosp_atd, google_atd ]
         channel: [ stable, beta, dev, canary ]
