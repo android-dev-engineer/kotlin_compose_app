@@ -1,10 +1,5 @@
 # Rules: https://github.com/detekt/detekt/blob/main/detekt-core/src/main/resources/default-detekt-config.yml
 # Compose: https://detekt.dev/docs/introduction/compose
-config:
-  validation: false
-  warningsAsErrors: false
-  checkExhaustiveness: false
-
 style:
   NewLineAtEndOfFile:
     active: false
@@ -13,14 +8,9 @@ style:
   MaxLineLength:
     active: true
     maxLineLength: 250
-    excludePackageStatements: true
-    excludeImportStatements: true
-    excludeRawStrings: true
-    excludeCommentStatements: false
   MagicNumber:
     active: true
     ignorePropertyDeclaration: true
-    ignoreCompanionObjectPropertyDeclaration: true
   UnusedPrivateMember:
     active: true
     ignoreAnnotated: [ 'Preview' ]
