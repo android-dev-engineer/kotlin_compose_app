@@ -5,4 +5,3 @@ object FileResourceUtil {
         return javaClass.classLoader?.getResource(file)!!.readText()
     }
 }
-
