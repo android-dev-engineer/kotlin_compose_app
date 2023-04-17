@@ -1,5 +1,6 @@
 package com.android.dev.engineer.kotlin.compose.data.interceptor
 
+import com.android.dev.engineer.kotlin.compose.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.Response
 import javax.inject.Inject
@@ -13,7 +14,7 @@ class ApiKeyInterceptor @Inject constructor() : Interceptor {
         val original = chain.request()
         val originalHttpUrl = original.url
         val url = originalHttpUrl.newBuilder()
-            .addQueryParameter(API_KEY_NAME, "")
+            .addQueryParameter(API_KEY_NAME, BuildConfig.API_KEY)
             .build()
         val requestBuilder = original.newBuilder().url(url)
         val request = requestBuilder.build()

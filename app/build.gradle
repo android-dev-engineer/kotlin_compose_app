@@ -7,8 +7,15 @@ plugins {
 }
 
 android {
+    def properties = new Properties()
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
     namespace 'com.android.dev.engineer.kotlin.compose'
     compileSdk 33
+
+    buildFeatures {
+        buildConfig = true // required since AGP 8.X
+    }
 
     defaultConfig {
         applicationId "com.android.dev.engineer.kotlin.compose"
@@ -16,6 +23,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "API_KEY", "\"${properties.getProperty("api_key")}\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
