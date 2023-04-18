@@ -1,9 +1,11 @@
 package com.android.dev.engineer.kotlin.compose.test.api
 
+import com.android.dev.engineer.kotlin.compose.BuildConfig
 import com.android.dev.engineer.kotlin.compose.data.api.authentication.AuthenticationRepository
 import com.android.dev.engineer.kotlin.compose.data.api.authentication.AuthenticationRepositoryImpl
 import com.android.dev.engineer.kotlin.compose.data.domain.network.NewSession
 import com.android.dev.engineer.kotlin.compose.data.domain.network.Session
+import com.android.dev.engineer.kotlin.compose.data.interceptor.ApiKeyInterceptor.Companion.API_KEY_NAME
 import com.android.dev.engineer.kotlin.compose.extension.MoshiAdapterExt.fromJson
 import com.android.dev.engineer.kotlin.compose.extension.MoshiAdapterExt.toJson
 import com.android.dev.engineer.kotlin.compose.extension.toTheMovieApi
@@ -47,6 +49,7 @@ class AccountRepositoryTest {
         val requestUrl = request.requestUrl!!
         assertEquals("POST", request.method)
         assertEquals("/authentication/session/new", requestUrl.encodedPath)
+        assertEquals(BuildConfig.API_KEY, requestUrl.queryParameter(name = API_KEY_NAME))
     }
 
     @Test
