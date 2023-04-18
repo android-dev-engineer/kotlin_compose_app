@@ -1,12 +1,12 @@
 package com.android.dev.engineer.kotlin.compose.extension
 
-import com.android.dev.engineer.kotlin.compose.data.api.UnifiedApi
+import com.android.dev.engineer.kotlin.compose.data.api.TheMovieApi
 import com.android.dev.engineer.kotlin.compose.data.di.NetworkModule
 import com.android.dev.engineer.kotlin.compose.data.di.NetworkModule.provideRetrofitBuilder
 import com.android.dev.engineer.kotlin.compose.data.interceptor.ApiKeyInterceptor
 import okhttp3.mockwebserver.MockWebServer
 
-fun MockWebServer.unifiedApi(): UnifiedApi {
+fun MockWebServer.toTheMovieApi(): TheMovieApi {
     val moshi = NetworkModule.provideMoshi()
     val moshiConverterFactory = NetworkModule.provideMoshiConverterFactory(moshi = moshi)
     val okHttpClient = NetworkModule.provideOkHttpClient(apiKeyInterceptor = ApiKeyInterceptor())
@@ -16,5 +16,5 @@ fun MockWebServer.unifiedApi(): UnifiedApi {
         baseUrl = url("").toString()
 
     )
-    return NetworkModule.provideUnifiedApi(retrofitBuilder = retrofitBuilder)
+    return NetworkModule.provideTheMovieApi(retrofitBuilder = retrofitBuilder)
 }

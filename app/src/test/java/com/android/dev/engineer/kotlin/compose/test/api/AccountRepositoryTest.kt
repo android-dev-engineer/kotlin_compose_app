@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalCoroutinesApi::class)
-
 package com.android.dev.engineer.kotlin.compose.test.api
 
 import com.android.dev.engineer.kotlin.compose.data.api.authentication.AuthenticationRepository
@@ -8,7 +6,7 @@ import com.android.dev.engineer.kotlin.compose.data.domain.network.NewSession
 import com.android.dev.engineer.kotlin.compose.data.domain.network.Session
 import com.android.dev.engineer.kotlin.compose.extension.MoshiAdapterExt.fromJson
 import com.android.dev.engineer.kotlin.compose.extension.MoshiAdapterExt.toJson
-import com.android.dev.engineer.kotlin.compose.extension.unifiedApi
+import com.android.dev.engineer.kotlin.compose.extension.toTheMovieApi
 import com.android.dev.engineer.kotlin.compose.fake.domain.SessionFake.createNewSession
 import com.android.dev.engineer.kotlin.compose.fake.domain.SessionFake.createSession
 import com.android.dev.engineer.kotlin.compose.util.FileResourceUtil
@@ -30,7 +28,7 @@ class AccountRepositoryTest {
     fun setUp() {
         mockWebServer = MockWebServer()
         mockWebServer.start()
-        authenticationRepository = AuthenticationRepositoryImpl(mockWebServer.unifiedApi())
+        authenticationRepository = AuthenticationRepositoryImpl(mockWebServer.toTheMovieApi())
     }
 
     @After

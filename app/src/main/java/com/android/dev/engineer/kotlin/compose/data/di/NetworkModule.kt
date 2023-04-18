@@ -1,7 +1,7 @@
 package com.android.dev.engineer.kotlin.compose.data.di
 
-import com.android.dev.engineer.kotlin.compose.data.api.UnifiedApi
-import com.android.dev.engineer.kotlin.compose.data.api.UnifiedApi.Companion.BASE_API_URL
+import com.android.dev.engineer.kotlin.compose.data.api.TheMovieApi
+import com.android.dev.engineer.kotlin.compose.data.api.TheMovieApi.Companion.BASE_API_URL
 import com.android.dev.engineer.kotlin.compose.data.interceptor.ApiKeyInterceptor
 import com.squareup.moshi.Moshi
 import dagger.Module
@@ -75,7 +75,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideUnifiedApi(retrofitBuilder: Retrofit.Builder): UnifiedApi {
-        return retrofitBuilder.build().create(UnifiedApi::class.java)
+    fun provideTheMovieApi(retrofitBuilder: Retrofit.Builder): TheMovieApi {
+        return retrofitBuilder.build().create(TheMovieApi::class.java)
     }
 }
