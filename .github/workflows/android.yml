@@ -29,6 +29,11 @@ jobs:
       - name: setup gradle
         uses: gradle/gradle-build-action@v2
 
+      - name: create local.properties
+        env:
+          API_KEY: ${{ secrets.API_KEY }}
+        run: echo API_KEY="$API_KEY" > ./local.properties
+
       # KtLint
       - name: run ktlintCheck
         run: ./gradlew ktlintCheck
