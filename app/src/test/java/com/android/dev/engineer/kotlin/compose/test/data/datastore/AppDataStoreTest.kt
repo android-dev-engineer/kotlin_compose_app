@@ -4,8 +4,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.test.core.app.ApplicationProvider
 import com.android.dev.engineer.kotlin.compose.data.di.DataStoreModule.provideAppPrefsDataStore
-import com.android.dev.engineer.kotlin.compose.data.local.AppDataStore
-import com.android.dev.engineer.kotlin.compose.data.local.AppDataStoreImpl
+import com.android.dev.engineer.kotlin.compose.data.datastore.app.AppDataStore
+import com.android.dev.engineer.kotlin.compose.data.datastore.app.AppDataStoreImpl
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestScope
 import kotlinx.coroutines.test.UnconfinedTestDispatcher

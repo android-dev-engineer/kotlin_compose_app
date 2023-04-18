@@ -5,8 +5,8 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
-import com.android.dev.engineer.kotlin.compose.data.local.AppDataStore
-import com.android.dev.engineer.kotlin.compose.data.local.AppDataStoreImpl
+import com.android.dev.engineer.kotlin.compose.data.datastore.app.AppDataStore
+import com.android.dev.engineer.kotlin.compose.data.datastore.app.AppDataStoreImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

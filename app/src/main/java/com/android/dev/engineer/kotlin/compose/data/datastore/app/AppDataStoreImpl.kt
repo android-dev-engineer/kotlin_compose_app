@@ -1,4 +1,4 @@
-package com.android.dev.engineer.kotlin.compose.data.local
+package com.android.dev.engineer.kotlin.compose.data.datastore.app
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
