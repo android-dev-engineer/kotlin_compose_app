@@ -2,7 +2,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
     ext {
-        compose_ui_version = '1.4.1'
+        compose_ui_version = '1.4.2'
     }
 }
 

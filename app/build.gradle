@@ -66,8 +66,8 @@ android {
 }
 
 dependencies {
-    implementation "androidx.activity:activity-compose:1.7.0"
-    implementation "androidx.compose.material:material:1.4.1"
+    implementation "androidx.activity:activity-compose:1.7.1"
+    implementation "androidx.compose.material:material:1.4.2"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
 
@@ -80,7 +80,7 @@ dependencies {
     implementation "androidx.navigation:navigation-compose:2.5.3"
 
     // Splash screen: https://developer.android.com/develop/ui/views/launch/splash-screen/migrate
-    implementation "androidx.core:core-splashscreen:1.0.0"
+    implementation "androidx.core:core-splashscreen:1.0.1"
 
     // Lifecycle scope: https://developer.android.com/topic/libraries/architecture/coroutines#dependencies
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
