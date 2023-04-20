@@ -32,7 +32,7 @@ import androidx.lifecycle.lifecycleScope
 import com.android.dev.engineer.kotlin.compose.ui.composable.ButtonComposable
 import com.android.dev.engineer.kotlin.compose.ui.composable.PagerIndicatorComposable
 import com.android.dev.engineer.kotlin.compose.ui.composable.TextButtonComposable
-import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
+import com.android.dev.engineer.kotlin.compose.data.domain.local.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

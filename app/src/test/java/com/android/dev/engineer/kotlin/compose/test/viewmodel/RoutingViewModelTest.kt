@@ -2,7 +2,7 @@ package com.android.dev.engineer.kotlin.compose.test.viewmodel
 
 import com.android.dev.engineer.kotlin.compose.coroutines.MainTestRule
 import com.android.dev.engineer.kotlin.compose.fake.GetInitialRouteUseCaseFake
-import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
+import com.android.dev.engineer.kotlin.compose.data.domain.local.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.feature.routing.RoutingViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
