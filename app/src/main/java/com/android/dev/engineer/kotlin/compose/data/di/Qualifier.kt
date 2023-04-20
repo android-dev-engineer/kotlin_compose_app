@@ -12,3 +12,9 @@ annotation class AppPrefs
 
 @Retention(AnnotationRetention.BINARY)
 annotation class DataStoreCoroutineScope
+
+@Retention(AnnotationRetention.BINARY)
+annotation class TheMovieApiBaseUrl
+
+@Retention(AnnotationRetention.BINARY)
+annotation class ApiKey

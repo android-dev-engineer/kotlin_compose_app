@@ -8,7 +8,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
+import com.android.dev.engineer.kotlin.compose.data.domain.local.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.feature.sign_in.SignInScreen
 import com.android.dev.engineer.kotlin.compose.feature.intro.IntroScreen
 import dagger.hilt.android.AndroidEntryPoint

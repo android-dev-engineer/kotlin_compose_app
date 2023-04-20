@@ -1,7 +1,7 @@
 package com.android.dev.engineer.kotlin.compose.test.viewmodel
 
 import com.android.dev.engineer.kotlin.compose.coroutines.MainTestRule
-import com.android.dev.engineer.kotlin.compose.data.domain.MainNavGraph
+import com.android.dev.engineer.kotlin.compose.data.domain.local.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.fake.MarkIntroCompleteUseCaseFake
 import com.android.dev.engineer.kotlin.compose.feature.intro.IntroViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi

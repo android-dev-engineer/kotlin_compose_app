@@ -1,6 +1,6 @@
 package com.android.dev.engineer.kotlin.compose.fake
 
-import com.android.dev.engineer.kotlin.compose.data.local.AppDataStore
+import com.android.dev.engineer.kotlin.compose.data.datastore.app.AppDataStore
 
 class AppDataStoreFake : AppDataStore {
     var isIntroPending = true

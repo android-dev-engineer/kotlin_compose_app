@@ -3,11 +3,19 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'com.google.dagger.hilt.android'
+    id 'com.google.devtools.ksp'
 }
 
 android {
+    def properties = new Properties()
+    properties.load(project.rootProject.file("local.properties").newDataInputStream())
+
     namespace 'com.android.dev.engineer.kotlin.compose'
     compileSdk 33
+
+    buildFeatures {
+        buildConfig = true // required since AGP 8.X
+    }
 
     defaultConfig {
         applicationId "com.android.dev.engineer.kotlin.compose"
@@ -15,6 +23,7 @@ android {
         targetSdk 33
         versionCode 1
         versionName "1.0"
+        buildConfigField "String", "API_KEY", "\"${properties.getProperty("api_key")}\""
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -95,9 +104,17 @@ dependencies {
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
 
-    // Coroutines: https://developer.android.com/kotlin/coroutines/test
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
+    // Data layer
+    implementation "com.squareup.retrofit2:retrofit:2.9.0"
+    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
+    implementation "com.squareup.moshi:moshi:1.14.0"
+    ksp "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
+    implementation "com.squareup.okhttp3:okhttp:4.10.0"
+
+    // Test
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4" // Coroutines: https://developer.android.com/kotlin/coroutines/test
     testImplementation "junit:junit:4.13.2"
     testImplementation 'org.robolectric:robolectric:4.10'
     testImplementation 'androidx.test:core-ktx:1.5.0'
+    testImplementation "com.squareup.okhttp3:mockwebserver:4.10.0"
 }
