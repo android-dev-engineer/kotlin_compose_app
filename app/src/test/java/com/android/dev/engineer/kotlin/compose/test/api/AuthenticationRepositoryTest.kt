@@ -42,7 +42,7 @@ class AuthenticationRepositoryTest {
     fun `verify get new session url`() = runTest {
         val bodyResponse = createNewSession().toJson()
         val mockResponse = MockResponse().setBody(bodyResponse)
-        mockWebServer.enqueue(mockResponse)
+        mockWebServer.enqueue(response = mockResponse)
         authenticationRepository.getNewSession(session = createSession())
 
         val request = mockWebServer.takeRequest()
@@ -54,23 +54,21 @@ class AuthenticationRepositoryTest {
 
     @Test
     fun `verify get new session request`() = runTest {
+        val bodyResponse = createNewSession().toJson()
         val expectedSession = FileUtil.getContent(file = "json/session.json").fromJson<Session>()
-        val bodyResponse = FileUtil.getContent(file = "json/new_session.json")
-        val mockResponse = MockResponse().setBody(bodyResponse)
-        mockWebServer.enqueue(mockResponse)
+        val mockResponse = MockResponse().setBody(body = bodyResponse)
+        mockWebServer.enqueue(response = mockResponse)
         authenticationRepository.getNewSession(session = expectedSession)
-
         val session = mockWebServer.takeRequest().body.readUtf8().fromJson<Session>()
         assertEquals(expectedSession, session)
     }
 
     @Test
     fun `verify get new session response`() = runTest {
-        val bodyJson = FileUtil.getContent(file = "json/new_session.json")
-        val mockResponse = MockResponse().setBody(bodyJson)
-        mockWebServer.enqueue(mockResponse)
-
-        val expectedNewSession = bodyJson.fromJson<NewSession>()
+        val bodyResponse = FileUtil.getContent(file = "json/new_session.json")
+        val expectedNewSession = bodyResponse.fromJson<NewSession>()
+        val mockResponse = MockResponse().setBody(body = bodyResponse)
+        mockWebServer.enqueue(response = mockResponse)
         val newSession = authenticationRepository.getNewSession(session = createSession())
         assertEquals(expectedNewSession, newSession)
     }
