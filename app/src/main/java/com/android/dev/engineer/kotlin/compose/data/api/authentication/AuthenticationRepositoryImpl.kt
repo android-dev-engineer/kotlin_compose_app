@@ -9,6 +9,6 @@ class AuthenticationRepositoryImpl @Inject constructor(
     private val theMovieApi: TheMovieApi
 ) : AuthenticationRepository {
     override suspend fun getNewSession(session: Session): NewSession {
-        return theMovieApi.newSession(session = session)
+        return theMovieApi.getNewSession(session = session)
     }
 }

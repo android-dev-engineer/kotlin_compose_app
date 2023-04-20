@@ -7,5 +7,5 @@ import retrofit2.http.POST
 
 interface AuthenticationApi {
     @POST("authentication/session/new")
-    suspend fun newSession(@Body session: Session): NewSession
+    suspend fun getNewSession(@Body session: Session): NewSession
 }
