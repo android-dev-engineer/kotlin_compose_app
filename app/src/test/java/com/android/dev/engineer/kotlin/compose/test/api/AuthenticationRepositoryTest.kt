@@ -11,7 +11,7 @@ import com.android.dev.engineer.kotlin.compose.extension.MoshiAdapterExt.toJson
 import com.android.dev.engineer.kotlin.compose.extension.toTheMovieApi
 import com.android.dev.engineer.kotlin.compose.fake.domain.SessionFake.createNewSession
 import com.android.dev.engineer.kotlin.compose.fake.domain.SessionFake.createSession
-import com.android.dev.engineer.kotlin.compose.util.FileResourceUtil
+import com.android.dev.engineer.kotlin.compose.util.FileUtil
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
 import okhttp3.mockwebserver.MockResponse
@@ -54,8 +54,8 @@ class AuthenticationRepositoryTest {
 
     @Test
     fun `verify get new session request`() = runTest {
-        val expectedSession = FileResourceUtil.getContent(file = "json/session.json").fromJson<Session>()
-        val bodyResponse = FileResourceUtil.getContent(file = "json/new_session.json")
+        val expectedSession = FileUtil.getContent(file = "json/session.json").fromJson<Session>()
+        val bodyResponse = FileUtil.getContent(file = "json/new_session.json")
         val mockResponse = MockResponse().setBody(bodyResponse)
         mockWebServer.enqueue(mockResponse)
         authenticationRepository.getNewSession(session = expectedSession)
@@ -66,7 +66,7 @@ class AuthenticationRepositoryTest {
 
     @Test
     fun `verify get new session response`() = runTest {
-        val bodyJson = FileResourceUtil.getContent(file = "json/new_session.json")
+        val bodyJson = FileUtil.getContent(file = "json/new_session.json")
         val mockResponse = MockResponse().setBody(bodyJson)
         mockWebServer.enqueue(mockResponse)
 
