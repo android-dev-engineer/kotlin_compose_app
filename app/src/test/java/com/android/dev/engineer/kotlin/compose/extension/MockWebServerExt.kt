@@ -11,9 +11,9 @@ fun MockWebServer.toTheMovieApi(): TheMovieApi {
     val moshiConverterFactory = NetworkModule.provideMoshiConverterFactory(moshi = moshi)
     val okHttpClient = NetworkModule.provideOkHttpClient(apiKeyInterceptor = ApiKeyInterceptor())
     val retrofitBuilder = provideRetrofitBuilder(
+        baseUrl = url("").toString(),
         okHttpClient = okHttpClient,
-        moshiConverterFactory = moshiConverterFactory,
-        baseUrl = url("").toString()
+        moshiConverterFactory = moshiConverterFactory
 
     )
     return NetworkModule.provideTheMovieApi(retrofitBuilder = retrofitBuilder)

@@ -13,7 +13,6 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
-import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -21,7 +20,6 @@ import javax.inject.Singleton
 object NetworkModule {
     private const val READ_TIMEOUT_SECS = 60L
     private const val CONNECT_TIMEOUT_SECS = 60L
-    private const val THE_MOVIE_API_BASE_URL_KEY = "THE_MOVIE_API_BASE_URL_KEY"
 
     @Singleton
     @Provides
@@ -35,6 +33,7 @@ object NetworkModule {
         return MoshiConverterFactory.create(moshi)
     }
 
+    @ApiKey
     @Singleton
     @Provides
     fun provideApiKeyInterceptor(apiKeyInterceptor: ApiKeyInterceptor): Interceptor {
@@ -44,7 +43,7 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideOkHttpClient(
-        apiKeyInterceptor: ApiKeyInterceptor
+        @ApiKey apiKeyInterceptor: ApiKeyInterceptor
     ): OkHttpClient {
         return OkHttpClient().newBuilder()
             .connectTimeout(CONNECT_TIMEOUT_SECS, TimeUnit.SECONDS)
@@ -53,7 +52,7 @@ object NetworkModule {
             .build()
     }
 
-    @Named(THE_MOVIE_API_BASE_URL_KEY)
+    @TheMovieApiBaseUrl
     @Singleton
     @Provides
     fun provideBaseApiUrl(): String {
@@ -63,9 +62,9 @@ object NetworkModule {
     @Singleton
     @Provides
     fun provideRetrofitBuilder(
+        @TheMovieApiBaseUrl baseUrl: String,
         okHttpClient: OkHttpClient,
-        moshiConverterFactory: MoshiConverterFactory,
-        @Named(THE_MOVIE_API_BASE_URL_KEY) baseUrl: String
+        moshiConverterFactory: MoshiConverterFactory
     ): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(baseUrl)
