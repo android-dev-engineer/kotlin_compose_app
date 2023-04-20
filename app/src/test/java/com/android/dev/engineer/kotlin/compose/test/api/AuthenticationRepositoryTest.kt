@@ -22,7 +22,7 @@ import org.junit.Before
 import org.junit.Test
 
 @ExperimentalCoroutinesApi
-class AccountRepositoryTest {
+class AuthenticationRepositoryTest {
     private lateinit var mockWebServer: MockWebServer
     private lateinit var authenticationRepository: AuthenticationRepository
 
