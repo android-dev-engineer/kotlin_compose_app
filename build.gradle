@@ -52,12 +52,11 @@ subprojects {
                 'dagger/hilt/**',
                 '**/*JsonAdapter.*'
         ]
-        def mainSrc = "${project.projectDir}/src/main/java"
-        def javaTree = fileTree(dir: "$project.buildDir/intermediates/javac/debug/classes", excludes: exclude)
+        def mainSrc = "${project.projectDir}/src/main"
         def kotlinTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: exclude)
 
         sourceDirectories.from = file(mainSrc)
-        classDirectories.from = files(javaTree, kotlinTree)
+        classDirectories.from = files(kotlinTree)
         executionData.from = fileTree(dir: project.buildDir, includes: ['**/*.exec', '**/*.ec'])
     }
 
