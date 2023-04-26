@@ -1,4 +1,4 @@
-package com.android.dev.engineer.kotlin.compose
+package com.android.dev.engineer.kotlin.compose.app
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
