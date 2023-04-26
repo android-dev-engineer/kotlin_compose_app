@@ -111,10 +111,7 @@ subprojects {
 
         sourceDirectories.from = file(mainSrc)
         classDirectories.from = files(kotlinTree)
-        executionData.from = fileTree(
-                dir: project.projectDir,
-                includes: ['*.exec']
-        )
+        executionData.from = fileTree(dir: project.projectDir, includes: ['*.exec'])
     }
 }
 
