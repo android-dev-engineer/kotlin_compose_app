@@ -24,12 +24,12 @@ subprojects {
 
     afterEvaluate {
         android {
-            // Jacoco config
             testOptions {
                 reportDir "$project.buildDir/reports/androidTests/report"
                 resultsDir "$project.buildDir/reports/androidTests/result"
 
                 buildTypes {
+                    // Jacoco config
                     debug.testCoverageEnabled = true
                     release.testCoverageEnabled = false
                 }
