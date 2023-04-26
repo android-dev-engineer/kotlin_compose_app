@@ -74,6 +74,11 @@ android {
     }
 }
 
+// Hilt config: https://developer.android.com/training/dependency-injection/hilt-android#setup
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     implementation "androidx.activity:activity-compose:1.7.1"
     implementation "androidx.compose.material:material:1.4.2"
