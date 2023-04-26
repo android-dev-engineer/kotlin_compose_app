@@ -108,7 +108,6 @@ subprojects {
                         '**/*JsonAdapter.*'
                 ]
         )
-
         sourceDirectories.from = file(mainSrc)
         classDirectories.from = files(kotlinTree)
         executionData.from = fileTree(dir: project.projectDir, includes: ['*.exec'])
