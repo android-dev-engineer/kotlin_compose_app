@@ -17,11 +17,6 @@ plugins {
     id 'jacoco' // Jacoco plugin: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:jacoco_getting_started
 }
 
-// Jacoco version: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:configuring_the_jacoco_plugin
-jacoco {
-    toolVersion = "0.8.10"
-}
-
 subprojects {
     apply plugin: 'org.jlleitschuh.gradle.ktlint'
     apply plugin: 'io.gitlab.arturbosch.detekt'
@@ -81,6 +76,11 @@ subprojects {
         }
     }
 
+    // Jacoco version: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:configuring_the_jacoco_plugin
+    jacoco {
+        toolVersion = "0.8.10"
+    }
+
     // Jacoco test options: https://docs.gradle.org/current/userguide/jacoco_plugin.html#default_values_of_the_jacoco_task_extension
     tasks.withType(Test) {
         jacoco {
@@ -111,7 +111,10 @@ subprojects {
 
         sourceDirectories.from = file(mainSrc)
         classDirectories.from = files(kotlinTree)
-        executionData.from = fileTree(dir: project.buildDir, includes: ['**/*.exec', '**/*.ec'])
+        executionData.from = fileTree(
+                dir: project.projectDir,
+                includes: ['*.exec']
+        )
     }
 }
 
