@@ -29,7 +29,7 @@ subprojects {
                 resultsDir "$project.buildDir/reports/androidTests/result"
 
                 buildTypes {
-                    // Jacoco config
+                    // Jacoco config: It configures/enables createDebugCoverageReport task to be used in codeCoverage task below
                     debug.testCoverageEnabled = true
                 }
             }
