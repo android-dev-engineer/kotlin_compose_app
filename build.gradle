@@ -25,9 +25,6 @@ subprojects {
     afterEvaluate {
         android {
             testOptions {
-                reportDir "$project.buildDir/reports/androidTests/report"
-                resultsDir "$project.buildDir/reports/androidTests/result"
-
                 buildTypes {
                     // Jacoco config: It configures/enables createDebugCoverageReport task to be used in codeCoverage task below
                     debug.testCoverageEnabled = true
