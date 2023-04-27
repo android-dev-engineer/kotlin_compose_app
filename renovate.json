@@ -37,6 +37,7 @@
       "groupName": "kotlin dependencies",
       "matchPackagePatterns": [
         "org.jetbrains.kotlin:*",
+        "com.google.devtools.ksp",
         "composeOptions"
       ]
     },
