@@ -45,6 +45,10 @@
       "matchPackagePatterns": [
         "com.android.library",
         "com.android.application"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
       ]
     },
     {
