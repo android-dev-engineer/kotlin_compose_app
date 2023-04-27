@@ -31,8 +31,31 @@ subprojects {
                 buildTypes {
                     // Jacoco config
                     debug.testCoverageEnabled = true
-                    release.testCoverageEnabled = false
                 }
+            }
+
+            // Jacoco options: https://docs.gradle.org/current/userguide/jacoco_plugin.html#default_values_of_the_jacoco_task_extension
+            tasks.register('codeCoverage', JacocoReport) {
+                dependsOn 'testDebugUnitTest', 'createDebugCoverageReport' // run unit tests and ui tests to generate code coverage report
+                reports {
+                    html.required.set(true)
+                    html.outputLocation = layout.buildDirectory.dir('reports/jacoco')
+                }
+                def mainSrc = "${project.projectDir}/src/main/java"
+                def kotlinTree = fileTree(
+                        dir: "$project.buildDir/tmp/kotlin-classes/debug",
+                        excludes: [
+                                '**/BuildConfig.*',
+                                '**/*$*',
+                                '**/Hilt_*.class',
+                                'hilt_**',
+                                'dagger/hilt/**',
+                                '**/*JsonAdapter.*'
+                        ]
+                )
+                sourceDirectories.from = file(mainSrc)
+                classDirectories.from = files(kotlinTree)
+                executionData.from = fileTree(dir: project.buildDir, includes: ['**/*.exec'])
             }
         }
     }
@@ -84,33 +107,9 @@ subprojects {
     // Jacoco test options: https://docs.gradle.org/current/userguide/jacoco_plugin.html#default_values_of_the_jacoco_task_extension
     tasks.withType(Test) {
         jacoco {
-            includeNoLocationClasses = true
+            includeNoLocationClasses = true // Robolectric support
             excludes = ['jdk.internal.*'] // Java compatibility
         }
-    }
-
-    // Jacoco options: https://docs.gradle.org/current/userguide/jacoco_plugin.html#default_values_of_the_jacoco_task_extension
-    tasks.register('codeCoverage', JacocoReport) {
-        dependsOn 'testDebugUnitTest', 'createDebugCoverageReport' // run unit tests and ui tests to generate code coverage report
-        reports {
-            html.required.set(true)
-            html.outputLocation = layout.buildDirectory.dir('reports/jacoco')
-        }
-        def mainSrc = "${project.projectDir}/src/main/java"
-        def kotlinTree = fileTree(
-                dir: "$project.buildDir/tmp/kotlin-classes/debug",
-                excludes: [
-                        '**/BuildConfig.*',
-                        '**/*$*',
-                        '**/Hilt_*.class',
-                        'hilt_**',
-                        'dagger/hilt/**',
-                        '**/*JsonAdapter.*'
-                ]
-        )
-        sourceDirectories.from = file(mainSrc)
-        classDirectories.from = files(kotlinTree)
-        executionData.from = fileTree(dir: project.buildDir, includes: ['**/*.exec'])
     }
 }
 
