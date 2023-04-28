@@ -43,14 +43,9 @@
     },
     {
       "groupName": "android plugin dependencies",
-      "groupSlug": "all-minor-patch",
       "matchPackagePatterns": [
         "com.android.library",
         "com.android.application"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
       ]
     },
     {
