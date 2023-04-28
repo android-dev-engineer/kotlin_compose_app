@@ -14,7 +14,7 @@ android {
     compileSdk 33
 
     buildFeatures {
-        buildConfig = true // required since AGP 8.X
+        buildConfig = true // This will be false by default in AGP 8.X
     }
 
     defaultConfig {
