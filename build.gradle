@@ -7,18 +7,55 @@ buildscript {
 }
 
 plugins {
-    id 'com.android.application' version '8.0.0' apply false
-    id 'com.android.library' version '8.0.0' apply false
+    id 'com.android.application' version '7.4.2' apply false
+    id 'com.android.library' version '7.4.2' apply false
     id 'org.jetbrains.kotlin.android' version '1.8.20' apply false
     id 'org.jlleitschuh.gradle.ktlint' version '11.3.2' apply true
     id 'com.google.dagger.hilt.android' version '2.45' apply false
     id 'io.gitlab.arturbosch.detekt' version '1.22.0' apply false
     id 'com.google.devtools.ksp' version '1.8.20-1.0.11' apply false
+    id 'jacoco' // Jacoco plugin: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:jacoco_getting_started
 }
 
 subprojects {
     apply plugin: 'org.jlleitschuh.gradle.ktlint'
     apply plugin: 'io.gitlab.arturbosch.detekt'
+    apply plugin: 'jacoco'
+
+    afterEvaluate {
+        android {
+            testOptions {
+                buildTypes {
+                    // Jacoco config: It configures/enables createDebugCoverageReport task to be used in codeCoverage task below
+                    debug.testCoverageEnabled = true
+                }
+            }
+
+            // Jacoco options: https://docs.gradle.org/current/userguide/jacoco_plugin.html#default_values_of_the_jacoco_task_extension
+            tasks.register('codeCoverage', JacocoReport) {
+                dependsOn 'testDebugUnitTest', 'createDebugCoverageReport' // run unit tests and ui tests to generate code coverage report
+                reports {
+                    html.required.set(true)
+                    html.outputLocation = layout.buildDirectory.dir('reports/jacoco')
+                }
+                def mainSrc = "${project.projectDir}/src/main/java"
+                def kotlinTree = fileTree(
+                        dir: "$project.buildDir/tmp/kotlin-classes/debug",
+                        excludes: [
+                                '**/BuildConfig.*',
+                                '**/*$*',
+                                '**/Hilt_*.class',
+                                'hilt_**',
+                                'dagger/hilt/**',
+                                '**/*JsonAdapter.*'
+                        ]
+                )
+                sourceDirectories.from = file(mainSrc)
+                classDirectories.from = files(kotlinTree)
+                executionData.from = fileTree(dir: project.buildDir, includes: ['**/*.exec'])
+            }
+        }
+    }
 
     // Ktlint options: https://github.com/JLLeitschuh/ktlint-gradle#configuration
     ktlint {
@@ -57,6 +94,19 @@ subprojects {
             xml.required.set(false)
             html.required.set(true)
             html.outputLocation.set(file("${project.buildDir}/reports/detekt/detekt.html"))
+        }
+    }
+
+    // Jacoco version: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:configuring_the_jacoco_plugin
+    jacoco {
+        toolVersion = "0.8.10"
+    }
+
+    // Jacoco test options: https://docs.gradle.org/current/userguide/jacoco_plugin.html#default_values_of_the_jacoco_task_extension
+    tasks.withType(Test) {
+        jacoco {
+            includeNoLocationClasses = true // Robolectric support
+            excludes = ['jdk.internal.*'] // Java compatibility
         }
     }
 }

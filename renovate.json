@@ -37,6 +37,7 @@
       "groupName": "kotlin dependencies",
       "matchPackagePatterns": [
         "org.jetbrains.kotlin:*",
+        "com.google.devtools.ksp",
         "composeOptions"
       ]
     },
@@ -45,6 +46,10 @@
       "matchPackagePatterns": [
         "com.android.library",
         "com.android.application"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
       ]
     },
     {
