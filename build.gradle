@@ -3,6 +3,7 @@ import io.gitlab.arturbosch.detekt.Detekt
 buildscript {
     ext {
         compose_ui_version = '1.4.2'
+        application_id = 'com.android.dev.engineer.kotlin.compose'
     }
 }
 
@@ -15,6 +16,7 @@ plugins {
     id 'io.gitlab.arturbosch.detekt' version '1.22.0' apply false
     id 'com.google.devtools.ksp' version '1.8.20-1.0.11' apply false
     id 'jacoco' // Jacoco plugin: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:jacoco_getting_started
+    id "org.sonarqube" version "4.0.0.2929"
 }
 
 subprojects {
@@ -64,11 +66,17 @@ subprojects {
         verbose = true
         reporters {
             reporter "html"
+            reporter "json" // it's required for Sonar
         }
         filter {
             include("**/*.kt")
             exclude("**/build/**")
         }
+    }
+
+    // KtLint reports output directory: https://github.com/JLLeitschuh/ktlint-gradle#setting-reports-output-directory
+    tasks.withType(org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask) {
+        reportsOutputDirectory = project.layout.buildDirectory.dir("reports/ktlint")
     }
 
     // Detekt options: https://detekt.dev/docs/gettingstarted/gradle#groovy-dsl-3
@@ -91,9 +99,10 @@ subprojects {
             txt.required.set(false)
             sarif.required.set(false)
             md.required.set(false)
-            xml.required.set(false)
             html.required.set(true)
             html.outputLocation.set(file("${project.buildDir}/reports/detekt/detekt.html"))
+            xml.required.set(true)
+            xml.outputLocation.set(file("${project.buildDir}/reports/detekt/detekt.xml"))
         }
     }
 
@@ -116,4 +125,24 @@ tasks.named('wrapper') {
     description = "Gradle wrapper task to update binary"
     gradleVersion = "8.1.1"
     distributionType = Wrapper.DistributionType.BIN
+}
+
+// Sonar properties: https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle
+sonar {
+    description = "Sonar properties task"
+    androidVariant = 'debug'
+
+    // Sonar properties: https://docs.sonarqube.org/latest/analysis/analysis-parameters/
+    properties {
+        property("sonar.host.url", "http://localhost:9000")
+        property("sonar.login", "admin")
+        property("sonar.password", "password")
+        property("sonar.projectName", "${rootProject.name}")
+        property("sonar.projectKey", application_id)
+        property("sonar.projectVersion", "1.0.0")
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
+        property("sonar.kotlin.ktlint.reportPaths", "build/reports/ktLint/ktlintMainSourceSetCheck.json")
+        property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml")
+    }
 }
