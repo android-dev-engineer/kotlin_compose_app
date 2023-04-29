@@ -27,7 +27,7 @@ subprojects {
     afterEvaluate {
         android {
             testOptions {
-                reportDir "$project.buildDir/reports/coverage/androidTest/debug/connected"
+                reportDir "$project.buildDir/reports/coverage/androidTest/debug/connected" // It's required for Sonar
 
                 buildTypes {
                     // Jacoco config: It configures/enables createDebugCoverageReport task to be used in codeCoverage task below
