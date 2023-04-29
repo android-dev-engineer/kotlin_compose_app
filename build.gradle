@@ -148,8 +148,9 @@ sonar {
         property("sonar.projectKey", application_id)
         property("sonar.projectVersion", "1.0.0")
         property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml") // https://docs.sonarqube.org/9.9/analyzing-source-code/test-coverage/java-test-coverage
+        // https://docs.sonarqube.org/9.9/analyzing-source-code/importing-external-issues/importing-third-party-issues/
         property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
         property("sonar.kotlin.ktlint.reportPaths", "build/reports/ktLint/ktlintMainSourceSetCheck.json")
-        property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml")
     }
 }
