@@ -4,6 +4,7 @@ buildscript {
     ext {
         compose_ui_version = '1.4.2'
         application_id = 'com.android.dev.engineer.kotlin.compose'
+        version_name = "1.0"
     }
 }
 
@@ -61,7 +62,7 @@ subprojects {
                 executionData.from = fileTree(dir: project.buildDir, includes: ['**/*.exec'])
             }
 
-            rootProject.tasks["sonar"].dependsOn ktlintCheck, tasks["detekt"]
+            rootProject.tasks["sonar"].dependsOn ktlintCheck, tasks["detekt"], codeCoverage
             codeCoverage.mustRunAfter ktlintCheck
         }
     }
@@ -83,7 +84,7 @@ subprojects {
 
     // KtLint reports output directory: https://github.com/JLLeitschuh/ktlint-gradle#setting-reports-output-directory
     tasks.withType(org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask) {
-        reportsOutputDirectory = project.layout.buildDirectory.dir("reports/ktlint")
+        reportsOutputDirectory = project.layout.buildDirectory.dir("reports/ktlint/$name")
     }
 
     // Detekt options: https://detekt.dev/docs/gettingstarted/gradle#groovy-dsl-3
@@ -137,20 +138,26 @@ tasks.named('wrapper') {
 // Sonar properties: https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle
 sonar {
     description = "Sonar properties task"
-    androidVariant = 'debug'
+    androidVariant = "debug"
+
+    def localProperties = new Properties()
+    localProperties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+    def ktlintReportPaths = subprojects.collect { proj ->
+        fileTree("${proj.buildDir}/reports/ktlint").matching { include '**/*.json' }.files.join(",")
+    }
 
     // Sonar properties: https://docs.sonarqube.org/latest/analysis/analysis-parameters/
     properties {
         property("sonar.host.url", "http://localhost:9000")
-        property("sonar.login", "admin")
-        property("sonar.password", "password")
-        property("sonar.projectName", "${rootProject.name}")
+        property("sonar.login", localProperties.getProperty("sonar_token"))
+        property("sonar.projectName", rootProject.name)
         property("sonar.projectKey", application_id)
-        property("sonar.projectVersion", "1.0.0")
+        property("sonar.projectVersion", version_name)
         property("sonar.sourceEncoding", "UTF-8")
         property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml") // https://docs.sonarqube.org/9.9/analyzing-source-code/test-coverage/java-test-coverage
         // https://docs.sonarqube.org/9.9/analyzing-source-code/importing-external-issues/importing-third-party-issues/
         property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
-        property("sonar.kotlin.ktlint.reportPaths", "build/reports/ktLint/ktlintMainSourceSetCheck.json")
+        property("sonar.kotlin.ktlint.reportPaths", ktlintReportPaths)
     }
 }
