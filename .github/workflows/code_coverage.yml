@@ -2,9 +2,8 @@ name: code_coverage
 
 on:
   workflow_run:
-    workflows: [ "build" ]
-    types:
-      - completed
+    workflows: [ build ]
+    types: [ completed ]
 
 concurrency:
   group: ${{ github.ref }}
@@ -13,6 +12,7 @@ concurrency:
 jobs:
   code_coverage:
     runs-on: macos-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} # https://docs.github.com/en/actions/using-workflows/events-that-trigger-workflows#running-a-workflow-based-on-the-conclusion-of-another-workflow
     strategy:
       matrix:
         api-level: [ 29 ]
