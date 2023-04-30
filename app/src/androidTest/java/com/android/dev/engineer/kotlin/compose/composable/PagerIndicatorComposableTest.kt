@@ -31,14 +31,14 @@ import org.junit.Rule
 import org.junit.Test
 
 class PagerIndicatorComposableTest {
-    @get:Rule
-    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
-
     companion object {
         private const val FOUR_IN_TOTAL = 4
         private val DEFAULT_SIZE = 24.dp
         private val DEFAULT_SPACING = 4.dp
     }
+
+    @get:Rule
+    val composeTestRule = createAndroidComposeRule<ComponentActivity>()
 
     @Test
     fun testScrollable() {
