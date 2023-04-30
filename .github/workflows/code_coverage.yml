@@ -1,10 +1,6 @@
 name: code_coverage
 
 on:
-  push:
-    branches: [ "develop", "main" ]
-  pull_request:
-    branches: [ "develop" ]
   workflow_run:
     workflows: [ "build" ]
     types:
@@ -17,6 +13,9 @@ concurrency:
 jobs:
   code_coverage:
     runs-on: macos-latest
+    strategy:
+      matrix:
+        api-level: [ 29 ]
     steps:
       - name: checkout project sources
         uses: actions/checkout@v3
