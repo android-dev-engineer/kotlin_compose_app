@@ -16,7 +16,6 @@ concurrency:
 
 jobs:
   code_coverage:
-    needs: code_linting
     runs-on: macos-latest
     steps:
       - name: checkout project sources
