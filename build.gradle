@@ -59,11 +59,14 @@ subprojects {
                 )
                 sourceDirectories.from = file(mainSrc)
                 classDirectories.from = files(kotlinTree)
-                executionData.from = fileTree(dir: project.buildDir, includes: ['**/*.exec'])
+                executionData.from = fileTree(dir: project.buildDir, includes: [
+                        '**/*.exec', // unit tests
+                        '**/*.ec', // ui tests
+                ])
             }
 
-            rootProject.tasks["sonar"].dependsOn ktlintCheck, tasks["detekt"], codeCoverage
-            codeCoverage.mustRunAfter ktlintCheck
+            rootProject.tasks["sonar"].dependsOn ktlintCheck, tasks["detekt"], tasks["lint"], codeCoverage
+            codeCoverage.mustRunAfter ktlintCheck, tasks["lint"]
         }
     }
 
