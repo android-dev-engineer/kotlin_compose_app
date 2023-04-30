@@ -24,6 +24,7 @@ android {
         versionCode 1
         versionName version_name
         buildConfigField "String", "API_KEY", "\"${properties.getProperty("api_key")}\""
+        // Hilt Test Runner: https://developer.android.com/training/dependency-injection/hilt-testing#instrumented-tests
         testInstrumentationRunner = "com.android.dev.engineer.kotlin.compose.runner.HiltTestRunner"
 
         vectorDrawables {
