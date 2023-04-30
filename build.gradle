@@ -143,9 +143,10 @@ sonar {
     def localProperties = new Properties()
     localProperties.load(project.rootProject.file("local.properties").newDataInputStream())
 
-    def ktlintReportPaths = subprojects.collect { proj ->
-        fileTree("${proj.buildDir}/reports/ktlint").matching { include '**/*.json' }.files.join(",")
-    }
+    def ktlintReportPaths = subprojects
+            .collect { fileTree("${it.buildDir}/reports/ktlint") }
+            .findAll { !it.isEmpty() }
+            .collect { it.matching { include '**/*.json' }.files.join(",") }
 
     // Sonar properties: https://docs.sonarqube.org/latest/analysis/analysis-parameters/
     properties {
