@@ -4,7 +4,6 @@ import com.android.dev.engineer.kotlin.compose.data.use_case.mark_intro.MarkIntr
 import com.android.dev.engineer.kotlin.compose.data.use_case.mark_intro.MarkIntroCompleteUseCaseImpl
 import com.android.dev.engineer.kotlin.compose.fake.AppDataStoreFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -18,10 +17,7 @@ class MarkIntroCompleteUseCaseTest {
     @Before
     fun setUp() {
         appDataStore = AppDataStoreFake()
-        markIntroCompleteUseCase = MarkIntroCompleteUseCaseImpl(
-            dispatcher = UnconfinedTestDispatcher(),
-            appDataStore = appDataStore
-        )
+        markIntroCompleteUseCase = MarkIntroCompleteUseCaseImpl(appDataStore = appDataStore)
     }
 
     @Test

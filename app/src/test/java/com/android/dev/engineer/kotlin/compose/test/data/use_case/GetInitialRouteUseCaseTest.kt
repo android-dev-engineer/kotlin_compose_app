@@ -5,7 +5,6 @@ import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetIn
 import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetInitialRouteUseCaseImpl
 import com.android.dev.engineer.kotlin.compose.fake.AppDataStoreFake
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.UnconfinedTestDispatcher
 import kotlinx.coroutines.test.runTest
 import org.junit.Assert.assertEquals
 import org.junit.Before
@@ -19,10 +18,7 @@ class GetInitialRouteUseCaseTest {
     @Before
     fun setUp() {
         appDataStore = AppDataStoreFake()
-        getInitialRouteUseCase = GetInitialRouteUseCaseImpl(
-            dispatcher = UnconfinedTestDispatcher(),
-            appDataStore = appDataStore
-        )
+        getInitialRouteUseCase = GetInitialRouteUseCaseImpl(appDataStore = appDataStore)
     }
 
     @Test
