@@ -5,6 +5,7 @@ import androidx.compose.material.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.android.dev.engineer.kotlin.compose.util.ExcludeFromJacocoGeneratedReport
 
 @Composable
 fun TextButtonComposable(
@@ -22,6 +23,7 @@ fun TextButtonComposable(
 
 @Preview(showBackground = true)
 @Composable
+@ExcludeFromJacocoGeneratedReport
 private fun PreviewButtonComposable() {
     TextButtonComposable(
         text = "Skip",

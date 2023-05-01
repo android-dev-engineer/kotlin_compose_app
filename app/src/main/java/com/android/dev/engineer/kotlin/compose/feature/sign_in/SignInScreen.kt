@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
+import com.android.dev.engineer.kotlin.compose.util.ExcludeFromJacocoGeneratedReport
 
 @Composable
 fun SignInScreen() {
@@ -31,6 +32,7 @@ fun SignInScreenComposable() {
 
 @Preview(showBackground = true)
 @Composable
+@ExcludeFromJacocoGeneratedReport
 private fun PreviewSignInScreenComposable() {
     SignInScreenComposable()
 }

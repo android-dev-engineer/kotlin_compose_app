@@ -3,6 +3,8 @@ import io.gitlab.arturbosch.detekt.Detekt
 buildscript {
     ext {
         compose_ui_version = '1.4.2'
+        application_id = 'com.android.dev.engineer.kotlin.compose'
+        version_name = "1.0"
     }
 }
 
@@ -15,6 +17,7 @@ plugins {
     id 'io.gitlab.arturbosch.detekt' version '1.22.0' apply false
     id 'com.google.devtools.ksp' version '1.8.20-1.0.11' apply false
     id 'jacoco' // Jacoco plugin: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:jacoco_getting_started
+    id "org.sonarqube" version "4.0.0.2929"
 }
 
 subprojects {
@@ -25,6 +28,8 @@ subprojects {
     afterEvaluate {
         android {
             testOptions {
+                reportDir "$project.buildDir/reports/coverage/androidTest/debug/connected" // It's required for Sonar
+
                 buildTypes {
                     // Jacoco config: It configures/enables createDebugCoverageReport task to be used in codeCoverage task below
                     debug.testCoverageEnabled = true
@@ -37,6 +42,8 @@ subprojects {
                 reports {
                     html.required.set(true)
                     html.outputLocation = layout.buildDirectory.dir('reports/jacoco')
+                    xml.required.set(true) // It's required for Sonar
+                    xml.outputLocation.set(file("${project.buildDir}/reports/jacoco/jacoco.xml"))
                 }
                 def mainSrc = "${project.projectDir}/src/main/java"
                 def kotlinTree = fileTree(
@@ -52,8 +59,14 @@ subprojects {
                 )
                 sourceDirectories.from = file(mainSrc)
                 classDirectories.from = files(kotlinTree)
-                executionData.from = fileTree(dir: project.buildDir, includes: ['**/*.exec'])
+                executionData.from = fileTree(dir: project.buildDir, includes: [
+                        '**/*.exec', // unit tests
+                        '**/*.ec', // ui tests
+                ])
             }
+
+            rootProject.tasks["sonar"].dependsOn ktlintCheck, tasks["detekt"], tasks["lint"], codeCoverage
+            codeCoverage.mustRunAfter ktlintCheck, tasks["lint"]
         }
     }
 
@@ -64,11 +77,17 @@ subprojects {
         verbose = true
         reporters {
             reporter "html"
+            reporter "json" // it's required for Sonar
         }
         filter {
             include("**/*.kt")
             exclude("**/build/**")
         }
+    }
+
+    // KtLint reports output directory: https://github.com/JLLeitschuh/ktlint-gradle#setting-reports-output-directory
+    tasks.withType(org.jlleitschuh.gradle.ktlint.tasks.GenerateReportsTask) {
+        reportsOutputDirectory = project.layout.buildDirectory.dir("reports/ktlint/$name")
     }
 
     // Detekt options: https://detekt.dev/docs/gettingstarted/gradle#groovy-dsl-3
@@ -91,9 +110,10 @@ subprojects {
             txt.required.set(false)
             sarif.required.set(false)
             md.required.set(false)
-            xml.required.set(false)
             html.required.set(true)
             html.outputLocation.set(file("${project.buildDir}/reports/detekt/detekt.html"))
+            xml.required.set(true)
+            xml.outputLocation.set(file("${project.buildDir}/reports/detekt/detekt.xml")) // It's required for Sonar
         }
     }
 
@@ -116,4 +136,32 @@ tasks.named('wrapper') {
     description = "Gradle wrapper task to update binary"
     gradleVersion = "8.1.1"
     distributionType = Wrapper.DistributionType.BIN
+}
+
+// Sonar properties: https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-gradle
+sonar {
+    description = "Sonar properties task"
+    androidVariant = "debug"
+
+    def localProperties = new Properties()
+    localProperties.load(project.rootProject.file("local.properties").newDataInputStream())
+
+    def ktlintReportPaths = subprojects
+            .collect { fileTree("${it.buildDir}/reports/ktlint") }
+            .findAll { !it.isEmpty() }
+            .collect { it.matching { include '**/*.json' }.files.join(",") }
+
+    // Sonar properties: https://docs.sonarqube.org/latest/analysis/analysis-parameters/
+    properties {
+        property("sonar.host.url", "http://localhost:9000")
+        property("sonar.login", localProperties.getProperty("sonar_token"))
+        property("sonar.projectName", rootProject.name)
+        property("sonar.projectKey", application_id)
+        property("sonar.projectVersion", version_name)
+        property("sonar.sourceEncoding", "UTF-8")
+        property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml") // https://docs.sonarqube.org/9.9/analyzing-source-code/test-coverage/java-test-coverage
+        // https://docs.sonarqube.org/9.9/analyzing-source-code/importing-external-issues/importing-third-party-issues/
+        property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
+        property("sonar.kotlin.ktlint.reportPaths", ktlintReportPaths)
+    }
 }

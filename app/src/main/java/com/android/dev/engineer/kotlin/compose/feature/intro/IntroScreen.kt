@@ -34,6 +34,7 @@ import com.android.dev.engineer.kotlin.compose.ui.composable.PagerIndicatorCompo
 import com.android.dev.engineer.kotlin.compose.ui.composable.TextButtonComposable
 import com.android.dev.engineer.kotlin.compose.data.domain.local.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
+import com.android.dev.engineer.kotlin.compose.util.ExcludeFromJacocoGeneratedReport
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -139,6 +140,7 @@ private fun IntroScreenComposable(
 
 @Preview(showBackground = true)
 @Composable
+@ExcludeFromJacocoGeneratedReport
 private fun PreviewIntroScreen() {
     IntroScreenComposable(
         introItems = listOf(

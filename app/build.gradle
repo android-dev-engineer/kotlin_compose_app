@@ -18,14 +18,15 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.android.dev.engineer.kotlin.compose"
+        applicationId application_id
         minSdk 21
         targetSdk 33
         versionCode 1
-        versionName "1.0"
+        versionName version_name
         buildConfigField "String", "API_KEY", "\"${properties.getProperty("api_key")}\""
+        // Hilt Test Runner: https://developer.android.com/training/dependency-injection/hilt-testing#instrumented-tests
+        testInstrumentationRunner = "com.android.dev.engineer.kotlin.compose.runner.HiltTestRunner"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary true
         }
@@ -85,11 +86,6 @@ dependencies {
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
 
-    // https://developer.android.com/jetpack/compose/testing#setup
-    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
-    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
-    androidTestImplementation "com.google.truth:truth:1.1.3"
-
     // Navigation https://developer.android.com/jetpack/compose/navigation#setup
     implementation "androidx.navigation:navigation-compose:2.5.3"
 
@@ -123,4 +119,11 @@ dependencies {
     testImplementation "com.google.dagger:hilt-android-testing:2.46" // Robolectric Hilt: https://dagger.dev/hilt/robolectric-testing.html
     testImplementation 'androidx.test:core-ktx:1.5.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:4.11.0"
+
+    // https://developer.android.com/jetpack/compose/testing#setup
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_ui_version"
+    debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
+    androidTestImplementation "com.google.truth:truth:1.1.3"
+    androidTestImplementation "androidx.test:runner:1.5.2"
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.45'
 }
