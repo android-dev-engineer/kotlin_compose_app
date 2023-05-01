@@ -8,6 +8,7 @@ import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import com.android.dev.engineer.kotlin.compose.R
+import com.android.dev.engineer.kotlin.compose.util.ExcludeFromJacocoGeneratedReport
 
 @Composable
 fun ButtonComposable(
@@ -25,6 +26,7 @@ fun ButtonComposable(
 
 @Preview(showBackground = true)
 @Composable
+@ExcludeFromJacocoGeneratedReport
 private fun PreviewButtonComposable() {
     ButtonComposable(
         text = "Skip",

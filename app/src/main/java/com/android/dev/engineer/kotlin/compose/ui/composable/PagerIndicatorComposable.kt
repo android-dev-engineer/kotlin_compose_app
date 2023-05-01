@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
 import com.android.dev.engineer.kotlin.compose.R
+import com.android.dev.engineer.kotlin.compose.util.ExcludeFromJacocoGeneratedReport
 
 @Composable
 fun PagerIndicatorComposable(
@@ -66,6 +67,7 @@ fun PagerIndicatorComposable(
 
 @Preview(showBackground = true)
 @Composable
+@ExcludeFromJacocoGeneratedReport
 private fun PreviewPagerIndicator() {
     var selectedIndex by remember { mutableStateOf(0) }
     PagerIndicatorComposable(
