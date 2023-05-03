@@ -63,5 +63,5 @@ jobs:
       - name: archive ui test reports on failure
         uses: actions/upload-artifact@v3
         with:
-          name: ui_tests
+          name: code_coverage
           path: "**/build/reports/jacoco"
