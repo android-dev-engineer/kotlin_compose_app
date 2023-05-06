@@ -4,7 +4,6 @@ import androidx.paging.PagingConfig
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.android.dev.engineer.kotlin.compose.data.api.TheMovieApi.Companion.DEFAULT_PAGE_SIZE
-import com.android.dev.engineer.kotlin.compose.data.domain.network.Movie
 import com.android.dev.engineer.kotlin.compose.fake.GetUpcomingMoviesUseCaseFake
 import com.android.dev.engineer.kotlin.compose.fake.domain.MovieFake.createUpcomingMovies
 import com.android.dev.engineer.kotlin.compose.feature.movie.UpcomingMoviesPagingSource
