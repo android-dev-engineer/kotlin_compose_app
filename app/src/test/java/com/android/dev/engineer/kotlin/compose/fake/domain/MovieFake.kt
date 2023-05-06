@@ -11,7 +11,7 @@ object MovieFake {
         popularity = 0.661,
         posterPath = "/r16LpvYoE6ADjbG",
         releaseDate = "2016-21-03",
-        title = "",
+        title = "Title",
         voteAverage = 8.5,
         voteCount = 150
     )
