@@ -6,7 +6,7 @@ import androidx.paging.PagingState
 import com.android.dev.engineer.kotlin.compose.data.api.TheMovieApi.Companion.DEFAULT_PAGE_SIZE
 import com.android.dev.engineer.kotlin.compose.fake.GetUpcomingMoviesUseCaseFake
 import com.android.dev.engineer.kotlin.compose.fake.domain.MovieFake.createUpcomingMovies
-import com.android.dev.engineer.kotlin.compose.feature.movie.UpcomingMoviesPagingSource
+import com.android.dev.engineer.kotlin.compose.feature.upcoming_movies.UpcomingMoviesPagingSource
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
