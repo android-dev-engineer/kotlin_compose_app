@@ -112,6 +112,9 @@ dependencies {
     ksp "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
     implementation "com.squareup.okhttp3:okhttp:4.11.0"
 
+    // Paging: https://developer.android.com/jetpack/androidx/releases/paging#declaring_dependencies
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
     // Test
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4" // Coroutines: https://developer.android.com/kotlin/coroutines/test
     testImplementation "junit:junit:4.13.2"
