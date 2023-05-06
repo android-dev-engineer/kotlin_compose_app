@@ -101,6 +101,7 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.46"
     // Navigation with Hilt: https://developer.android.com/jetpack/compose/libraries#hilt-navigation
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
+    implementation "io.coil-kt:coil-compose:2.3.0"
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
@@ -114,12 +115,15 @@ dependencies {
 
     // Paging: https://developer.android.com/jetpack/androidx/releases/paging#declaring_dependencies
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+    implementation "androidx.paging:paging-compose:1.0.0-alpha19"
 
     // Test
-    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4" // Coroutines: https://developer.android.com/kotlin/coroutines/test
+    // Coroutines: https://developer.android.com/kotlin/coroutines/test
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     testImplementation "junit:junit:4.13.2"
     testImplementation 'org.robolectric:robolectric:4.10.2'
-    testImplementation "com.google.dagger:hilt-android-testing:2.46" // Robolectric Hilt: https://dagger.dev/hilt/robolectric-testing.html
+    // Robolectric Hilt: https://dagger.dev/hilt/robolectric-testing.html
+    testImplementation "com.google.dagger:hilt-android-testing:2.46"
     testImplementation 'androidx.test:core-ktx:1.5.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:4.11.0"
 
