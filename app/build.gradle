@@ -58,7 +58,7 @@ android {
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.6'
+        kotlinCompilerExtensionVersion '1.4.7'
     }
 
     testOptions {
@@ -82,7 +82,9 @@ kapt {
 
 dependencies {
     implementation "androidx.activity:activity-compose:1.7.1"
-    implementation "androidx.compose.material:material:1.4.2"
+    implementation "androidx.compose.material:material:1.4.3"
+    // Coroutine Android: https://github.com/Kotlin/kotlinx.coroutines#android
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
     implementation "androidx.compose.ui:ui-tooling-preview:$compose_ui_version"
     debugImplementation "androidx.compose.ui:ui-tooling:$compose_ui_version"
 
@@ -97,8 +99,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 
     // Hilt: https://developer.android.com/training/dependency-injection/hilt-android
-    implementation "com.google.dagger:hilt-android:2.45"
-    kapt "com.google.dagger:hilt-compiler:2.45"
+    implementation "com.google.dagger:hilt-android:2.46"
+    kapt "com.google.dagger:hilt-compiler:2.46"
     // Navigation with Hilt: https://developer.android.com/jetpack/compose/libraries#hilt-navigation
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
@@ -115,11 +117,14 @@ dependencies {
     // Encrypt data: https://developer.android.com/topic/security/data#include-library
     implementation "androidx.security:security-crypto:1.0.0"
 
+    // Paging: https://developer.android.com/jetpack/androidx/releases/paging#declaring_dependencies
+    implementation "androidx.paging:paging-runtime-ktx:3.1.1"
+
     // Test
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4" // Coroutines: https://developer.android.com/kotlin/coroutines/test
     testImplementation "junit:junit:4.13.2"
-    testImplementation 'org.robolectric:robolectric:4.10'
-    testImplementation "com.google.dagger:hilt-android-testing:2.45" // Robolectric Hilt: https://dagger.dev/hilt/robolectric-testing.html
+    testImplementation 'org.robolectric:robolectric:4.10.2'
+    testImplementation "com.google.dagger:hilt-android-testing:2.46" // Robolectric Hilt: https://dagger.dev/hilt/robolectric-testing.html
     testImplementation 'androidx.test:core-ktx:1.5.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:4.11.0"
 
@@ -128,5 +133,5 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
     androidTestImplementation "com.google.truth:truth:1.1.3"
     androidTestImplementation "androidx.test:runner:1.5.2"
-    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.45'
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.46'
 }

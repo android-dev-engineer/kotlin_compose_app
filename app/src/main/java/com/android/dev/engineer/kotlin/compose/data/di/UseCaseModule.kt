@@ -4,6 +4,8 @@ import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetIn
 import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetInitialRouteUseCaseImpl
 import com.android.dev.engineer.kotlin.compose.data.use_case.mark_intro.MarkIntroCompleteUseCase
 import com.android.dev.engineer.kotlin.compose.data.use_case.mark_intro.MarkIntroCompleteUseCaseImpl
+import com.android.dev.engineer.kotlin.compose.data.use_case.upcoming_movie.GetUpcomingMoviesUseCase
+import com.android.dev.engineer.kotlin.compose.data.use_case.upcoming_movie.GetUpcomingMoviesUseCaseImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,5 +25,11 @@ object UseCaseModule {
     @Provides
     fun provideMarkIntroCompleteUseCase(markIntroCompleteUseCaseImpl: MarkIntroCompleteUseCaseImpl): MarkIntroCompleteUseCase {
         return markIntroCompleteUseCaseImpl
+    }
+
+    @Singleton
+    @Provides
+    fun provideUpcomingMoviesUseCase(getUpcomingMoviesUseCaseImpl: GetUpcomingMoviesUseCaseImpl): GetUpcomingMoviesUseCase {
+        return getUpcomingMoviesUseCaseImpl
     }
 }
