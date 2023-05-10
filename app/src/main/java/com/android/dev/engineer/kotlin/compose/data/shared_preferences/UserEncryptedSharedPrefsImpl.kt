@@ -5,9 +5,9 @@ import androidx.core.content.edit
 import com.android.dev.engineer.kotlin.compose.data.di.EncryptedSharedPrefsKey
 
 // Use device file explorer to find it: data/data/com.android.dev.engineer.kotlin.compose/shared_prefs/encrypted_shared_preferences.xml
-class EncryptedSharedPrefsImpl(
+class UserEncryptedSharedPrefsImpl(
     @EncryptedSharedPrefsKey val sharedPreferences: SharedPreferences
-) : EncryptedSharedPrefs {
+) : UserEncryptedSharedPrefs {
     companion object {
         private const val ACCESS_TOKEN_KEY = "access_token_key"
     }

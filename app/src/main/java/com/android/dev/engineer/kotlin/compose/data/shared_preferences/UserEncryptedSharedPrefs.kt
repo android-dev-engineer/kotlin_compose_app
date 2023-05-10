@@ -1,6 +1,6 @@
 package com.android.dev.engineer.kotlin.compose.data.shared_preferences
 
-interface EncryptedSharedPrefs {
+interface UserEncryptedSharedPrefs {
     fun getAccessToken(): String
     fun saveAccessToken(accessToken: String)
     fun clearAll()
