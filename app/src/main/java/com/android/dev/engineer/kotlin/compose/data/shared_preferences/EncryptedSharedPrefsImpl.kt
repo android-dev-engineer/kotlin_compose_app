@@ -9,7 +9,7 @@ class EncryptedSharedPrefsImpl(
     @EncryptedSharedPrefsKey val sharedPreferences: SharedPreferences
 ) : EncryptedSharedPrefs {
     companion object {
-        private const val ACCESS_TOKEN_KEY = "ACCESS_TOKEN_KEY"
+        private const val ACCESS_TOKEN_KEY = "access_token_key"
     }
 
     @Synchronized
