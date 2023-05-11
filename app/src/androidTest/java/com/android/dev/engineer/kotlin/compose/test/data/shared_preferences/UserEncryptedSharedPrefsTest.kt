@@ -36,15 +36,15 @@ class UserEncryptedSharedPrefsTest {
     }
 
     @Test
-    fun testAccessToken() = runTest {
-        userEncryptedSharedPrefs.saveAccessToken(accessToken = SECRET_ACCESS_TOKEN)
-        assertEquals(SECRET_ACCESS_TOKEN, userEncryptedSharedPrefs.getAccessToken())
+    fun testSaveSessionId() = runTest {
+        userEncryptedSharedPrefs.saveSessionId(sessionId = SECRET_ACCESS_TOKEN)
+        assertEquals(SECRET_ACCESS_TOKEN, userEncryptedSharedPrefs.getSessionId())
     }
 
     @Test
     fun testClearAll() = runTest {
-        userEncryptedSharedPrefs.saveAccessToken(accessToken = SECRET_ACCESS_TOKEN)
+        userEncryptedSharedPrefs.saveSessionId(sessionId = SECRET_ACCESS_TOKEN)
         userEncryptedSharedPrefs.clearAll()
-        assertEquals("", userEncryptedSharedPrefs.getAccessToken())
+        assertEquals("", userEncryptedSharedPrefs.getSessionId())
     }
 }
