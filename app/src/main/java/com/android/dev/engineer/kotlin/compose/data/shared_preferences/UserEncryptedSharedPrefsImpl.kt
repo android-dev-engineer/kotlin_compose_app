@@ -13,14 +13,14 @@ class UserEncryptedSharedPrefsImpl(
     }
 
     @Synchronized
-    override fun saveAccessToken(accessToken: String) {
+    override fun saveSessionId(sessionId: String) {
         sharedPreferences.edit {
-            putString(ACCESS_TOKEN_KEY, accessToken)
+            putString(ACCESS_TOKEN_KEY, sessionId)
         }
     }
 
     @Synchronized
-    override fun getAccessToken(): String {
+    override fun getSessionId(): String {
         return sharedPreferences.getString(ACCESS_TOKEN_KEY, "").orEmpty()
     }
 

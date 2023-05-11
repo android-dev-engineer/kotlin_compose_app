@@ -1,11 +1,11 @@
 package com.android.dev.engineer.kotlin.compose.data.shared_preferences
 
 interface UserEncryptedSharedPrefs {
-    fun getAccessToken(): String
-    fun saveAccessToken(accessToken: String)
+    fun getSessionId(): String
+    fun saveSessionId(sessionId: String)
     fun clearAll()
 
     companion object {
-        const val FILE_NAME = "encrypted_shared_preferences"
+        const val SHARED_PREFS_FILE_NAME = "user_encrypted_shared_prefs"
     }
 }
