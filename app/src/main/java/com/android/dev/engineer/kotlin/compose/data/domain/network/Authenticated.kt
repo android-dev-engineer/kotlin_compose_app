@@ -10,7 +10,3 @@ data class Authenticated(
     @Json(name = "request_token")
     val requestToken: String
 )
-
-fun Authenticated.toSession(): Session = Session(
-    requestToken = requestToken
-)
