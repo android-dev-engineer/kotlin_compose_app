@@ -2,6 +2,8 @@ package com.android.dev.engineer.kotlin.compose.data.di
 
 import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetInitialRouteUseCase
 import com.android.dev.engineer.kotlin.compose.data.use_case.initial_route.GetInitialRouteUseCaseImpl
+import com.android.dev.engineer.kotlin.compose.data.use_case.logout.LogOutUseCase
+import com.android.dev.engineer.kotlin.compose.data.use_case.logout.LogOutUseCaseImpl
 import com.android.dev.engineer.kotlin.compose.data.use_case.mark_intro.MarkIntroCompleteUseCase
 import com.android.dev.engineer.kotlin.compose.data.use_case.mark_intro.MarkIntroCompleteUseCaseImpl
 import com.android.dev.engineer.kotlin.compose.data.use_case.sign_in.LogInUseCase
@@ -39,5 +41,11 @@ object UseCaseModule {
     @Provides
     fun provideLogInUseCase(logInUseCaseImpl: LogInUseCaseImpl): LogInUseCase {
         return logInUseCaseImpl
+    }
+
+    @Singleton
+    @Provides
+    fun provideLogOutUseCase(logOutUseCaseImpl: LogOutUseCaseImpl): LogOutUseCase {
+        return logOutUseCaseImpl
     }
 }
