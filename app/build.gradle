@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId application_id
-        minSdk 21
+        minSdk 23
         targetSdk 33
         versionCode 1
         versionName version_name
@@ -113,6 +113,9 @@ dependencies {
     implementation "com.squareup.moshi:moshi:1.15.0"
     ksp "com.squareup.moshi:moshi-kotlin-codegen:1.15.0"
     implementation "com.squareup.okhttp3:okhttp:4.11.0"
+
+    // Encrypt data: https://developer.android.com/topic/security/data#include-library
+    implementation "androidx.security:security-crypto:1.0.0"
 
     // Paging: https://developer.android.com/jetpack/androidx/releases/paging#declaring_dependencies
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
