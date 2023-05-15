@@ -61,7 +61,7 @@ subprojects {
                 classDirectories.from = files(kotlinTree)
                 executionData.from = fileTree(dir: project.buildDir, includes: [
                         '**/*.exec', // unit tests
-                        '**/*.ec', // ui tests
+                        '**/*.ec' // ui tests
                 ])
             }
 

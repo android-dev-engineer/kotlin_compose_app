@@ -18,7 +18,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class UserEncryptedSharedPrefsTest {
     companion object {
-        private const val SECRET_ACCESS_TOKEN = "my secret access token"
+        private const val FAKE_SESSION_ID = "fake_session_id"
     }
 
     private lateinit var sharedPreferences: SharedPreferences
@@ -37,13 +37,13 @@ class UserEncryptedSharedPrefsTest {
 
     @Test
     fun testSaveSessionId() = runTest {
-        userEncryptedSharedPrefs.saveSessionId(sessionId = SECRET_ACCESS_TOKEN)
-        assertEquals(SECRET_ACCESS_TOKEN, userEncryptedSharedPrefs.getSessionId())
+        userEncryptedSharedPrefs.saveSessionId(sessionId = FAKE_SESSION_ID)
+        assertEquals(FAKE_SESSION_ID, userEncryptedSharedPrefs.getSessionId())
     }
 
     @Test
     fun testClearAll() = runTest {
-        userEncryptedSharedPrefs.saveSessionId(sessionId = SECRET_ACCESS_TOKEN)
+        userEncryptedSharedPrefs.saveSessionId(sessionId = FAKE_SESSION_ID)
         userEncryptedSharedPrefs.clearAll()
         assertEquals("", userEncryptedSharedPrefs.getSessionId())
     }

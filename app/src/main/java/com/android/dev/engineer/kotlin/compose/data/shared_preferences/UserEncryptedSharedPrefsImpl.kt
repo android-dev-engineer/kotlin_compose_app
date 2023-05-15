@@ -9,19 +9,19 @@ class UserEncryptedSharedPrefsImpl(
     @EncryptedSharedPrefsKey val sharedPreferences: SharedPreferences
 ) : UserEncryptedSharedPrefs {
     companion object {
-        private const val ACCESS_TOKEN_KEY = "access_token_key"
+        private const val SESSION_ID_KEY = "session_id_key"
     }
 
     @Synchronized
     override fun saveSessionId(sessionId: String) {
         sharedPreferences.edit {
-            putString(ACCESS_TOKEN_KEY, sessionId)
+            putString(SESSION_ID_KEY, sessionId)
         }
     }
 
     @Synchronized
     override fun getSessionId(): String {
-        return sharedPreferences.getString(ACCESS_TOKEN_KEY, "").orEmpty()
+        return sharedPreferences.getString(SESSION_ID_KEY, "").orEmpty()
     }
 
     @Synchronized
