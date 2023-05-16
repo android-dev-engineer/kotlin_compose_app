@@ -12,8 +12,6 @@ updates:
       time: "09:00"
       timezone: "Europe/Dublin"
     open-pull-requests-limit: 10
-    labels:
-      - "dependabot"
     target-branch: "develop"
     reviewers:
       - "android-dev-engineer"
