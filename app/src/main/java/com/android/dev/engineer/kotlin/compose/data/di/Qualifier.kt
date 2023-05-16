@@ -18,3 +18,6 @@ annotation class TheMovieApiBaseUrl
 
 @Retention(AnnotationRetention.BINARY)
 annotation class ApiKey
+
+@Retention(AnnotationRetention.BINARY)
+annotation class EncryptedSharedPrefsKey

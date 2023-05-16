@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId application_id
-        minSdk 21
+        minSdk 23
         targetSdk 33
         versionCode 1
         versionName version_name
@@ -99,8 +99,8 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 
     // Hilt: https://developer.android.com/training/dependency-injection/hilt-android
-    implementation "com.google.dagger:hilt-android:2.46"
-    kapt "com.google.dagger:hilt-compiler:2.46"
+    implementation "com.google.dagger:hilt-android:2.46.1"
+    kapt "com.google.dagger:hilt-compiler:2.46.1"
     // Navigation with Hilt: https://developer.android.com/jetpack/compose/libraries#hilt-navigation
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
     implementation "io.coil-kt:coil-compose:2.3.0"
@@ -111,9 +111,12 @@ dependencies {
     // Data layer
     implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
-    implementation "com.squareup.moshi:moshi:1.14.0"
-    ksp "com.squareup.moshi:moshi-kotlin-codegen:1.14.0"
+    implementation "com.squareup.moshi:moshi:1.15.0"
+    ksp "com.squareup.moshi:moshi-kotlin-codegen:1.15.0"
     implementation "com.squareup.okhttp3:okhttp:4.11.0"
+
+    // Encrypt data: https://developer.android.com/topic/security/data#include-library
+    implementation "androidx.security:security-crypto:1.0.0"
 
     // Paging: https://developer.android.com/jetpack/androidx/releases/paging#declaring_dependencies
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
@@ -124,8 +127,9 @@ dependencies {
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     testImplementation "junit:junit:4.13.2"
     testImplementation 'org.robolectric:robolectric:4.10.2'
+
     // Robolectric Hilt: https://dagger.dev/hilt/robolectric-testing.html
-    testImplementation "com.google.dagger:hilt-android-testing:2.46"
+    testImplementation "com.google.dagger:hilt-android-testing:2.46.1"
     testImplementation 'androidx.test:core-ktx:1.5.0'
     testImplementation "com.squareup.okhttp3:mockwebserver:4.11.0"
 
@@ -134,5 +138,5 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
     androidTestImplementation "com.google.truth:truth:1.1.3"
     androidTestImplementation "androidx.test:runner:1.5.2"
-    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.46'
+    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.46.1'
 }

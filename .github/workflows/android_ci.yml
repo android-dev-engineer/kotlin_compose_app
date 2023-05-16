@@ -1,10 +1,10 @@
-name: build
+name: android_ci
 
 on:
   push:
     branches: [ "main" ]
   pull_request:
-    branches: [ "develop" ]
+    branches: [ "develop" , "main" ]
 
 concurrency:
   group: ${{ github.ref }}
