@@ -1,7 +1,9 @@
 package com.android.dev.engineer.kotlin.compose.feature.upcoming_movies
 
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
@@ -24,6 +26,7 @@ import kotlinx.coroutines.flow.flowOf
 @Composable
 fun MovieListComposable(
     pagingItems: LazyPagingItems<MovieItem>,
+    columnsSize: Int,
     onClickMovie: (MovieItem) -> Unit
 ) {
     var refreshing by rememberSaveable { mutableStateOf(false) }
@@ -44,29 +47,38 @@ fun MovieListComposable(
         refreshing = pagingItems.loadState.refresh == LoadState.Loading && pagingItems.itemCount > 0
     }
 
-    Box(Modifier.pullRefresh(pullRefreshState)) {
-        LazyColumn(
-            verticalArrangement = Arrangement.spacedBy(8.dp),
-            contentPadding = PaddingValues(all = 8.dp)
+    Box(
+        Modifier.pullRefresh(pullRefreshState)
+    ) {
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(count = columnsSize),
+            horizontalArrangement = Arrangement.spacedBy(8.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
-            items(count = pagingItems.itemCount) { index ->
-                val movieItem = pagingItems[index]
-                if (movieItem != null) {
-                    MovieItemComposable(
-                        movieItem = movieItem,
-                        onClickMovie = { onClickMovie(movieItem) }
-                    )
+            items(
+                count = pagingItems.itemCount,
+                itemContent = { index ->
+                    val movieItem = pagingItems[index]
+                    if (movieItem != null) {
+                        MovieItemComposable(
+                            movieItem = movieItem,
+                            onClickMovie = { onClickMovie(movieItem) }
+                        )
+                    }
                 }
-            }
-
+            )
             if (pagingItems.loadState.append == LoadState.Loading) {
-                item {
-                    CircularProgressIndicator(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .wrapContentWidth(Alignment.CenterHorizontally)
-                    )
-                }
+                item(
+                    span = { GridItemSpan(currentLineSpan = columnsSize) },
+                    content = {
+                        CircularProgressIndicator(
+                            modifier = Modifier
+                                .padding(all = 8.dp)
+                                .fillMaxWidth()
+                                .wrapContentWidth(align = Alignment.CenterHorizontally)
+                        )
+                    }
+                )
             }
         }
 
@@ -99,6 +111,7 @@ private fun PreviewMovieListComposable() {
                 )
             )
         ).collectAsLazyPagingItems(),
+        columnsSize = 3,
         onClickMovie = {}
     )
 }

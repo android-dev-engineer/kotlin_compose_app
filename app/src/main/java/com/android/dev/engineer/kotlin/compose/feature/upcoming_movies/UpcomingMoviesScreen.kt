@@ -11,6 +11,8 @@ import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
 import com.android.dev.engineer.kotlin.compose.util.ExcludeFromJacocoGeneratedReport
 import kotlinx.coroutines.flow.flowOf
 
+private const val COLUMN_SIZE = 3
+
 @Composable
 fun UpcomingMoviesScreen(
     viewModel: UpcomingMoviesViewModel = hiltViewModel()
@@ -24,6 +26,7 @@ fun UpcomingMoviesScreenComposable(pagingItems: LazyPagingItems<MovieItem>) {
     KotlinComposeAppTheme {
         MovieListComposable(
             pagingItems = pagingItems,
+            columnsSize = COLUMN_SIZE,
             onClickMovie = {}
         )
     }
