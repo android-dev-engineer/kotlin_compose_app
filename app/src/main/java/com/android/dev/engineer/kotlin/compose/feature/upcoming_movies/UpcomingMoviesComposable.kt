@@ -74,16 +74,21 @@ fun MovieListComposable(
                     }
                 }
             )
-            item(
-                span = { GridItemSpan(currentLineSpan = columnsSize) },
-                content = {
-                    if (lazyPagingItems.loadState.append == LoadState.Loading) {
+            if (lazyPagingItems.loadState.append == LoadState.Loading) {
+                item(
+                    span = { GridItemSpan(currentLineSpan = columnsSize) },
+                    content = {
                         CircularProgressIndicator(
                             modifier = Modifier
                                 .padding(all = 8.dp)
                                 .wrapContentWidth(align = Alignment.CenterHorizontally)
                         )
-                    } else if (lazyPagingItems.loadState.append is LoadState.Error) {
+                    }
+                )
+            } else if (lazyPagingItems.loadState.append is LoadState.Error) {
+                item(
+                    span = { GridItemSpan(currentLineSpan = columnsSize) },
+                    content = {
                         ButtonComposable(
                             modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally),
                             text = "Try again",
@@ -92,8 +97,8 @@ fun MovieListComposable(
                             }
                         )
                     }
-                }
-            )
+                )
+            }
         }
 
         PullRefreshIndicator(
