@@ -44,7 +44,7 @@ fun MovieListComposable(
     )
 
     Box(
-        Modifier
+        modifier = Modifier
             .fillMaxSize()
             .pullRefresh(pullRefreshState)
     ) {
