@@ -25,7 +25,7 @@ fun UpcomingMoviesScreen(
 fun UpcomingMoviesScreenComposable(pagingItems: LazyPagingItems<MovieItem>) {
     KotlinComposeAppTheme {
         MovieListComposable(
-            pagingItems = pagingItems,
+            lazyPagingItems = pagingItems,
             columnsSize = COLUMN_SIZE,
             onClickMovie = {}
         )

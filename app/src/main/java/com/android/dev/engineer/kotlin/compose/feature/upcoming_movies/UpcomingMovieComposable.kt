@@ -1,9 +1,9 @@
 package com.android.dev.engineer.kotlin.compose.feature.upcoming_movies
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -22,6 +21,7 @@ import com.android.dev.engineer.kotlin.compose.R
 import com.android.dev.engineer.kotlin.compose.data.domain.local.MovieItem
 
 private const val MOVIE_POSTER_RATIO = 2f / 3f
+private const val ALPHA_IN_SIXTY_PERCENT = 0.7f
 
 @Composable
 fun MovieItemComposable(
@@ -31,29 +31,35 @@ fun MovieItemComposable(
     Card(
         modifier = Modifier
             .aspectRatio(ratio = MOVIE_POSTER_RATIO)
-            .clip(shape = RoundedCornerShape(size = 8.dp))
-            .clickable { onClickMovie() }
+            .clickable { onClickMovie() },
+        backgroundColor = colorResource(id = R.color.grey),
+        border = BorderStroke(
+            width = 1.dp,
+            color = colorResource(id = R.color.black)
+        )
     ) {
         Box {
             AsyncImage(
-                contentScale = ContentScale.FillBounds,
                 model = movieItem.posterPath,
                 contentDescription = movieItem.originalTitle
             )
-            Text(
-                modifier = Modifier
-                    .align(Alignment.TopEnd)
-                    .background(color = colorResource(id = R.color.black))
-                    .clip(shape = CircleShape),
-                fontWeight = FontWeight.Bold,
-                fontSize = MaterialTheme.typography.h5.fontSize,
-                color = colorResource(id = R.color.white),
-                text = movieItem.voteAverage.toString()
-            )
+            if (movieItem.voteAverage > 0) {
+                Text(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .clip(shape = RoundedCornerShape(percent = 15))
+                        .background(color = colorResource(id = R.color.black).copy(alpha = ALPHA_IN_SIXTY_PERCENT))
+                        .padding(all = 4.dp),
+                    text = movieItem.voteAverage.toString(),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = MaterialTheme.typography.h6.fontSize,
+                    color = colorResource(id = R.color.white)
+                )
+            }
             Column(
                 modifier = Modifier
-                    .background(color = colorResource(id = R.color.black).copy(alpha = 0.6f))
-                    .padding(all = 8.dp)
+                    .background(color = colorResource(id = R.color.black).copy(alpha = ALPHA_IN_SIXTY_PERCENT))
+                    .padding(all = 4.dp)
                     .align(Alignment.BottomCenter)
             ) {
                 Text(

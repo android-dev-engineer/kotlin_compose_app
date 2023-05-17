@@ -6,26 +6,32 @@ import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.ExperimentalMaterialApi
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.pullrefresh.PullRefreshIndicator
 import androidx.compose.material.pullrefresh.pullRefresh
 import androidx.compose.material.pullrefresh.rememberPullRefreshState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.paging.LoadState
 import androidx.paging.PagingData
-import androidx.paging.compose.*
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.android.dev.engineer.kotlin.compose.data.domain.local.MovieItem
+import com.android.dev.engineer.kotlin.compose.ui.composable.ButtonComposable
 import kotlinx.coroutines.flow.flowOf
 
 // https://developer.android.com/reference/kotlin/androidx/paging/compose/package-summary#(kotlinx.coroutines.flow.Flow).collectAsLazyPagingItems(kotlin.coroutines.CoroutineContext)
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun MovieListComposable(
-    pagingItems: LazyPagingItems<MovieItem>,
+    lazyPagingItems: LazyPagingItems<MovieItem>,
     columnsSize: Int,
     onClickMovie: (MovieItem) -> Unit
 ) {
@@ -33,32 +39,33 @@ fun MovieListComposable(
     val pullRefreshState = rememberPullRefreshState(
         refreshing = refreshing,
         onRefresh = {
-            pagingItems.refresh()
+            lazyPagingItems.refresh()
         }
     )
-    if (pagingItems.loadState.refresh == LoadState.Loading && pagingItems.itemCount == 0) {
-        Box(
-            modifier = Modifier.fillMaxSize(),
-            contentAlignment = Alignment.Center
-        ) {
-            CircularProgressIndicator()
-        }
-    } else {
-        refreshing = pagingItems.loadState.refresh == LoadState.Loading && pagingItems.itemCount > 0
-    }
 
     Box(
-        Modifier.pullRefresh(pullRefreshState)
+        Modifier
+            .fillMaxSize()
+            .pullRefresh(pullRefreshState)
     ) {
+        if (lazyPagingItems.loadState.refresh == LoadState.Loading && lazyPagingItems.itemCount == 0) {
+            CircularProgressIndicator(
+                modifier = Modifier.align(Alignment.Center)
+            )
+        } else {
+            refreshing = lazyPagingItems.loadState.refresh == LoadState.Loading && lazyPagingItems.itemCount > 0
+        }
+
         LazyVerticalGrid(
             columns = GridCells.Fixed(count = columnsSize),
+            contentPadding = PaddingValues(all = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
             verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             items(
-                count = pagingItems.itemCount,
+                count = lazyPagingItems.itemCount,
                 itemContent = { index ->
-                    val movieItem = pagingItems[index]
+                    val movieItem = lazyPagingItems[index]
                     if (movieItem != null) {
                         MovieItemComposable(
                             movieItem = movieItem,
@@ -67,23 +74,31 @@ fun MovieListComposable(
                     }
                 }
             )
-            if (pagingItems.loadState.append == LoadState.Loading) {
-                item(
-                    span = { GridItemSpan(currentLineSpan = columnsSize) },
-                    content = {
+            item(
+                span = { GridItemSpan(currentLineSpan = columnsSize) },
+                content = {
+                    if (lazyPagingItems.loadState.append == LoadState.Loading) {
                         CircularProgressIndicator(
                             modifier = Modifier
                                 .padding(all = 8.dp)
-                                .fillMaxWidth()
                                 .wrapContentWidth(align = Alignment.CenterHorizontally)
                         )
+                    } else if (lazyPagingItems.loadState.append is LoadState.Error) {
+                        ButtonComposable(
+                            modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally),
+                            text = "Try again",
+                            onClick = {
+                                lazyPagingItems.retry()
+                            }
+                        )
                     }
-                )
-            }
+                }
+            )
         }
 
         PullRefreshIndicator(
             modifier = Modifier.align(Alignment.TopCenter),
+            contentColor = MaterialTheme.colors.primary,
             refreshing = refreshing,
             state = pullRefreshState
         )
@@ -94,7 +109,7 @@ fun MovieListComposable(
 @Composable
 private fun PreviewMovieListComposable() {
     MovieListComposable(
-        pagingItems = flowOf(
+        lazyPagingItems = flowOf(
             PagingData.from(
                 data = listOf(
                     MovieItem(
