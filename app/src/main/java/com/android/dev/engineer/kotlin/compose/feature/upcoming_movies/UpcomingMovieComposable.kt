@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -67,7 +68,9 @@ fun MovieItemComposable(
                     text = movieItem.originalTitle,
                     fontWeight = FontWeight.Bold,
                     color = colorResource(id = R.color.white),
-                    fontSize = MaterialTheme.typography.body1.fontSize
+                    fontSize = MaterialTheme.typography.body1.fontSize,
+                    maxLines = 2,
+                    overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     modifier = Modifier.fillMaxWidth(),
