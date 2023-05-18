@@ -41,6 +41,7 @@ fun MovieItemComposable(
     ) {
         Box {
             AsyncImage(
+                modifier = Modifier.matchParentSize(),
                 model = movieItem.posterPath,
                 contentDescription = movieItem.originalTitle
             )
