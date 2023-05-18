@@ -37,22 +37,6 @@ fun UpcomingMoviesScreenComposable(pagingItems: LazyPagingItems<MovieItem>) {
 @ExcludeFromJacocoGeneratedReport
 private fun PreviewSignInScreenComposable() {
     UpcomingMoviesScreenComposable(
-        pagingItems = flowOf(
-            PagingData.from(
-                data = listOf(
-                    MovieItem(
-                        id = 1,
-                        originalTitle = "Original title",
-                        overview = "Overview",
-                        popularity = 0.661,
-                        posterPath = "/r16LpvYoE6ADjbG",
-                        releaseDate = "2016-21-03",
-                        title = "Title",
-                        voteAverage = 8.5,
-                        voteCount = 150
-                    )
-                )
-            )
-        ).collectAsLazyPagingItems()
+        pagingItems = flowOf(PagingData.empty<MovieItem>()).collectAsLazyPagingItems()
     )
 }
