@@ -1,6 +1,8 @@
 package com.android.dev.engineer.kotlin.compose.feature.upcoming_movies
 
+import android.content.res.Configuration
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.PagingData
@@ -11,7 +13,8 @@ import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
 import com.android.dev.engineer.kotlin.compose.util.ExcludeFromJacocoGeneratedReport
 import kotlinx.coroutines.flow.flowOf
 
-private const val COLUMN_SIZE = 3
+private const val COLUMN_SIZE_IN_PORTRAIT_MODE = 3
+private const val COLUMN_SIZE_IN_LANDSCAPE_MODE = 4
 
 @Composable
 fun UpcomingMoviesScreen(
@@ -24,9 +27,13 @@ fun UpcomingMoviesScreen(
 @Composable
 fun UpcomingMoviesScreenComposable(pagingItems: LazyPagingItems<MovieItem>) {
     KotlinComposeAppTheme {
+        val configuration = LocalConfiguration.current
         MovieListComposable(
             lazyPagingItems = pagingItems,
-            columnsSize = COLUMN_SIZE,
+            columnsSize = when (configuration.orientation) {
+                Configuration.ORIENTATION_PORTRAIT -> COLUMN_SIZE_IN_PORTRAIT_MODE
+                else -> COLUMN_SIZE_IN_LANDSCAPE_MODE
+            },
             onClickMovie = {}
         )
     }
