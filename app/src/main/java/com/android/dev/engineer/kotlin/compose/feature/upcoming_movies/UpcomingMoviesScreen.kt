@@ -151,7 +151,7 @@ fun UpcomingMoviesScreenComposable(
                         text = "No upcoming videos found"
                     )
                 }
-                is LoadState.Error -> {
+                is LoadState.Error -> if (lazyPagingItems.itemCount == 0) {
                     ButtonComposable(
                         modifier = Modifier.align(Alignment.Center),
                         text = "Try again",
