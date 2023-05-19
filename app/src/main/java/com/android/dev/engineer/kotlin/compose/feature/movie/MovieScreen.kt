@@ -26,7 +26,7 @@ fun MovieScreenComposable(movieId: Int) {
             contentAlignment = Alignment.Center
         ) {
             Text(
-                text = "Movie details of movie: $movieId"
+                text = "Movie details: $movieId"
             )
         }
     }
