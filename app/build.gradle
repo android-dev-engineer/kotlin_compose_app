@@ -127,7 +127,7 @@ dependencies {
     // Coroutines: https://developer.android.com/kotlin/coroutines/test
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4"
     testImplementation "junit:junit:4.13.2"
-    testImplementation 'org.robolectric:robolectric:4.10.2'
+    testImplementation 'org.robolectric:robolectric:4.10.3'
 
     // Robolectric Hilt: https://dagger.dev/hilt/robolectric-testing.html
     testImplementation "com.google.dagger:hilt-android-testing:2.46.1"
@@ -139,5 +139,5 @@ dependencies {
     debugImplementation "androidx.compose.ui:ui-test-manifest:$compose_ui_version"
     androidTestImplementation "com.google.truth:truth:1.1.3"
     androidTestImplementation "androidx.test:runner:1.5.2"
-    androidTestImplementation 'com.google.dagger:hilt-android-testing:2.46.1'
+    androidTestImplementation "com.google.dagger:hilt-android-testing:2.46.1"
 }
