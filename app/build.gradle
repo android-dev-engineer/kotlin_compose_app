@@ -97,6 +97,7 @@ dependencies {
     // Lifecycle scope: https://developer.android.com/topic/libraries/architecture/coroutines#dependencies
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.6.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.6.1"
 
     // Hilt: https://developer.android.com/training/dependency-injection/hilt-android
     implementation "com.google.dagger:hilt-android:2.46.1"
