@@ -48,10 +48,10 @@ fun MovieItemComposable(
             if (movieItem.voteAverage > 0) {
                 Text(
                     modifier = Modifier
-                        .align(Alignment.TopEnd)
+                        .align(alignment = Alignment.TopEnd)
                         .clip(shape = RoundedCornerShape(percent = 15))
                         .background(color = colorResource(id = R.color.black).copy(alpha = ALPHA_IN_SIXTY_PERCENT))
-                        .padding(all = 4.dp),
+                        .padding(horizontal = 4.dp),
                     text = movieItem.voteAverage.toString(),
                     fontWeight = FontWeight.Bold,
                     fontSize = MaterialTheme.typography.h6.fontSize,
