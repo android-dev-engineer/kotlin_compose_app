@@ -5,11 +5,14 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
 import androidx.core.os.bundleOf
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.android.dev.engineer.kotlin.compose.data.domain.local.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.feature.intro.IntroScreen
+import com.android.dev.engineer.kotlin.compose.feature.movie.MovieScreen
 import com.android.dev.engineer.kotlin.compose.feature.sign_in.SignInScreen
 import com.android.dev.engineer.kotlin.compose.feature.upcoming_movies.UpcomingMoviesScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -60,7 +63,17 @@ fun MainNavHost(startDestination: String) {
             )
         }
         composable(MainNavGraph.UpcomingMovies.route) {
-            UpcomingMoviesScreen()
+            UpcomingMoviesScreen(
+                onClickMovie = { movieItem ->
+                    navController.navigate(route = "movie/${movieItem.id}")
+                }
+            )
+        }
+        composable(
+            route = MainNavGraph.Movie.route,
+            arguments = listOf(navArgument("id") { type = NavType.IntType })
+        ) {
+            MovieScreen()
         }
     }
 }
