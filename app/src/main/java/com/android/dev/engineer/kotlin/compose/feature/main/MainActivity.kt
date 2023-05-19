@@ -13,6 +13,7 @@ import androidx.navigation.navArgument
 import com.android.dev.engineer.kotlin.compose.data.domain.local.MainNavGraph
 import com.android.dev.engineer.kotlin.compose.feature.intro.IntroScreen
 import com.android.dev.engineer.kotlin.compose.feature.movie.MovieScreen
+import com.android.dev.engineer.kotlin.compose.feature.movie.MovieViewModel.Companion.ID_ARG
 import com.android.dev.engineer.kotlin.compose.feature.sign_in.SignInScreen
 import com.android.dev.engineer.kotlin.compose.feature.upcoming_movies.UpcomingMoviesScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -65,13 +66,15 @@ fun MainNavHost(startDestination: String) {
         composable(MainNavGraph.UpcomingMovies.route) {
             UpcomingMoviesScreen(
                 onClickMovie = { movieItem ->
-                    navController.navigate(route = "movie/${movieItem.id}")
+                    navController.navigate(route = MainNavGraph.Movie.route + "/${movieItem.id}")
                 }
             )
         }
         composable(
-            route = MainNavGraph.Movie.route,
-            arguments = listOf(navArgument("id") { type = NavType.IntType })
+            route = MainNavGraph.Movie.route + "/{$ID_ARG}",
+            arguments = listOf(
+                navArgument(name = ID_ARG, builder = { type = NavType.IntType })
+            )
         ) {
             MovieScreen()
         }

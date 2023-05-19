@@ -9,6 +9,10 @@ import javax.inject.Inject
 class MovieViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
+    companion object {
+        const val ID_ARG = "id"
+    }
+
     // TODO make it private
-    val movieId by lazy { requireNotNull(savedStateHandle.get<Int>("id")) }
+    val movieId by lazy { requireNotNull(savedStateHandle.get<Int>(ID_ARG)) }
 }
