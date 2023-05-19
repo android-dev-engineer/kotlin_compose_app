@@ -18,14 +18,21 @@ private const val COLUMN_SIZE_IN_LANDSCAPE_MODE = 4
 
 @Composable
 fun UpcomingMoviesScreen(
-    viewModel: UpcomingMoviesViewModel = hiltViewModel()
+    viewModel: UpcomingMoviesViewModel = hiltViewModel(),
+    onClickMovie: (MovieItem) -> Unit
 ) {
     val lazyPagingItems = viewModel.stateFlow.collectAsLazyPagingItems()
-    UpcomingMoviesScreenComposable(lazyPagingItems)
+    UpcomingMoviesScreenComposable(
+        pagingItems = lazyPagingItems,
+        onClickMovie = onClickMovie
+    )
 }
 
 @Composable
-fun UpcomingMoviesScreenComposable(pagingItems: LazyPagingItems<MovieItem>) {
+fun UpcomingMoviesScreenComposable(
+    pagingItems: LazyPagingItems<MovieItem>,
+    onClickMovie: (MovieItem) -> Unit
+) {
     KotlinComposeAppTheme {
         val configuration = LocalConfiguration.current
         MovieListComposable(
@@ -34,7 +41,7 @@ fun UpcomingMoviesScreenComposable(pagingItems: LazyPagingItems<MovieItem>) {
                 Configuration.ORIENTATION_PORTRAIT -> COLUMN_SIZE_IN_PORTRAIT_MODE
                 else -> COLUMN_SIZE_IN_LANDSCAPE_MODE
             },
-            onClickMovie = {}
+            onClickMovie = onClickMovie
         )
     }
 }
@@ -44,6 +51,7 @@ fun UpcomingMoviesScreenComposable(pagingItems: LazyPagingItems<MovieItem>) {
 @ExcludeFromJacocoGeneratedReport
 private fun PreviewSignInScreenComposable() {
     UpcomingMoviesScreenComposable(
-        pagingItems = flowOf(PagingData.empty<MovieItem>()).collectAsLazyPagingItems()
+        pagingItems = flowOf(PagingData.empty<MovieItem>()).collectAsLazyPagingItems(),
+        onClickMovie = {}
     )
 }
