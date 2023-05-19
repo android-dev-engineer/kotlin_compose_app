@@ -52,30 +52,8 @@ fun MovieListComposable(
             .fillMaxSize()
             .pullRefresh(pullRefreshState)
     ) {
-        when (lazyPagingItems.loadState.refresh) {
-            is LoadState.Loading -> if (lazyPagingItems.itemCount == 0) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
-                )
-            }
-            is LoadState.NotLoading -> if (lazyPagingItems.itemCount == 0) {
-                Text(
-                    modifier = Modifier.align(Alignment.Center),
-                    text = "No upcoming videos found"
-                )
-            }
-            is LoadState.Error -> {
-                ButtonComposable(
-                    modifier = Modifier.align(Alignment.Center),
-                    text = "Try again",
-                    onClick = {
-                        lazyPagingItems.retry()
-                    }
-                )
-            }
-        }
-
         LazyVerticalGrid(
+            modifier = Modifier.fillMaxSize(),
             columns = GridCells.Fixed(count = columnsSize),
             contentPadding = PaddingValues(all = 8.dp),
             horizontalArrangement = Arrangement.spacedBy(8.dp),
@@ -107,7 +85,7 @@ fun MovieListComposable(
                             }
                         )
                     }
-                    is LoadState.NotLoading -> if (state.endOfPaginationReached) {
+                    is LoadState.NotLoading -> if (lazyPagingItems.itemCount > 0 && state.endOfPaginationReached) {
                         item(
                             span = { GridItemSpan(currentLineSpan = columnsSize) },
                             content = {
@@ -139,6 +117,29 @@ fun MovieListComposable(
                 }
             }
         )
+
+        when (lazyPagingItems.loadState.refresh) {
+            is LoadState.Loading -> if (lazyPagingItems.itemCount == 0) {
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center)
+                )
+            }
+            is LoadState.NotLoading -> if (lazyPagingItems.itemCount == 0) {
+                Text(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = "No upcoming videos found"
+                )
+            }
+            is LoadState.Error -> {
+                ButtonComposable(
+                    modifier = Modifier.align(Alignment.Center),
+                    text = "Try again",
+                    onClick = {
+                        lazyPagingItems.retry()
+                    }
+                )
+            }
+        }
 
         PullRefreshIndicator(
             modifier = Modifier.align(Alignment.TopCenter),
