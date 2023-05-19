@@ -25,7 +25,7 @@ private const val MOVIE_POSTER_RATIO = 2f / 3f
 private const val ALPHA_IN_SIXTY_PERCENT = 0.7f
 
 @Composable
-fun MovieItemComposable(
+fun UpcomingMovieComposable(
     movieItem: MovieItem,
     onClickMovie: () -> Unit
 ) {
@@ -87,7 +87,7 @@ fun MovieItemComposable(
 @Preview
 @Composable
 private fun PreviewMovieItemComposable() {
-    MovieItemComposable(
+    UpcomingMovieComposable(
         movieItem = MovieItem(
             id = 1,
             originalTitle = "Transformers: Rise of the Beasts",
