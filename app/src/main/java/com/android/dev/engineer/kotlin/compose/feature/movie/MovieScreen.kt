@@ -1,38 +1,32 @@
-package com.android.dev.engineer.kotlin.compose.feature.sign_in
+package com.android.dev.engineer.kotlin.compose.feature.movie
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.android.dev.engineer.kotlin.compose.data.domain.local.MainNavGraph
-import com.android.dev.engineer.kotlin.compose.ui.composable.ButtonComposable
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.android.dev.engineer.kotlin.compose.ui.theme.KotlinComposeAppTheme
 import com.android.dev.engineer.kotlin.compose.util.ExcludeFromJacocoGeneratedReport
 
 @Composable
-fun SignInScreen(
-    onLoggedIn: (MainNavGraph) -> Unit
+fun MovieScreen(
+    movieViewModel: MovieViewModel = hiltViewModel()
 ) {
-    SignInScreenComposable(
-        onLoggedIn = onLoggedIn
-    )
+    MovieScreenComposable(movieViewModel.movieId)
 }
 
-// TODO implement sign in screen
 @Composable
-fun SignInScreenComposable(
-    onLoggedIn: (MainNavGraph) -> Unit
-) {
+fun MovieScreenComposable(movieId: Int) {
     KotlinComposeAppTheme {
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            ButtonComposable(
-                text = "Go to upcoming movies",
-                onClick = { onLoggedIn(MainNavGraph.UpcomingMovies) }
+            Text(
+                text = "Movie details: $movieId"
             )
         }
     }
@@ -41,8 +35,8 @@ fun SignInScreenComposable(
 @Preview(showBackground = true)
 @Composable
 @ExcludeFromJacocoGeneratedReport
-private fun PreviewSignInScreenComposable() {
-    SignInScreenComposable(
-        onLoggedIn = {}
+private fun PreviewMovieScreenComposable() {
+    MovieScreenComposable(
+        movieId = 1234
     )
 }
