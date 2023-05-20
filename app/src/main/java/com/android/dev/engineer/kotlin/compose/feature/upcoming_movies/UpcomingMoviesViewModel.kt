@@ -16,9 +16,9 @@ import javax.inject.Inject
 class UpcomingMoviesViewModel @Inject constructor(
     private val getUpcomingMoviesUseCase: GetUpcomingMoviesUseCase
 ) : ViewModel() {
-    val stateFlow: Flow<PagingData<MovieItem>> by lazy { getUpcomingMoviesPageSource() }
+    val stateFlow: Flow<PagingData<MovieItem>> by lazy { getUpcomingMoviesPagingData() }
 
-    private fun getUpcomingMoviesPageSource(): Flow<PagingData<MovieItem>> {
+    private fun getUpcomingMoviesPagingData(): Flow<PagingData<MovieItem>> {
         return Pager(
             pagingSourceFactory = {
                 UpcomingMoviesPagingSource(
