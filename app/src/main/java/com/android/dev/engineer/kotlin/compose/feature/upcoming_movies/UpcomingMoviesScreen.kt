@@ -44,7 +44,7 @@ fun UpcomingMoviesScreen(
     val lazyPagingItems = viewModel.stateFlow.collectAsLazyPagingItems()
     UpcomingMoviesScreenComposable(
         lazyPagingItems = lazyPagingItems,
-        columnsSize = when (LocalConfiguration.current.orientation) {
+        columnSize = when (LocalConfiguration.current.orientation) {
             Configuration.ORIENTATION_PORTRAIT -> COLUMN_SIZE_IN_PORTRAIT_MODE
             else -> COLUMN_SIZE_IN_LANDSCAPE_MODE
         },
@@ -56,7 +56,7 @@ fun UpcomingMoviesScreen(
 @Composable
 fun UpcomingMoviesScreenComposable(
     lazyPagingItems: LazyPagingItems<MovieItem>,
-    columnsSize: Int,
+    columnSize: Int,
     onClickMovie: (MovieItem) -> Unit
 ) {
     KotlinComposeAppTheme {
@@ -65,7 +65,9 @@ fun UpcomingMoviesScreenComposable(
         }
         val pullRefreshState = rememberPullRefreshState(
             refreshing = isRefreshing,
-            onRefresh = { lazyPagingItems.refresh() }
+            onRefresh = {
+                lazyPagingItems.refresh()
+            }
         )
 
         Box(
@@ -75,7 +77,7 @@ fun UpcomingMoviesScreenComposable(
         ) {
             LazyVerticalGrid(
                 modifier = Modifier.fillMaxSize(),
-                columns = GridCells.Fixed(count = columnsSize),
+                columns = GridCells.Fixed(count = columnSize),
                 contentPadding = PaddingValues(all = 8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
@@ -96,7 +98,7 @@ fun UpcomingMoviesScreenComposable(
                     when (val state = lazyPagingItems.loadState.append) {
                         is LoadState.Loading -> {
                             item(
-                                span = { GridItemSpan(currentLineSpan = columnsSize) },
+                                span = { GridItemSpan(currentLineSpan = columnSize) },
                                 content = {
                                     CircularProgressIndicator(
                                         modifier = Modifier
@@ -108,7 +110,7 @@ fun UpcomingMoviesScreenComposable(
                         }
                         is LoadState.NotLoading -> if (lazyPagingItems.itemCount > 0 && state.endOfPaginationReached) {
                             item(
-                                span = { GridItemSpan(currentLineSpan = columnsSize) },
+                                span = { GridItemSpan(currentLineSpan = columnSize) },
                                 content = {
                                     Text(
                                         modifier = Modifier
@@ -123,7 +125,7 @@ fun UpcomingMoviesScreenComposable(
                         }
                         is LoadState.Error -> {
                             item(
-                                span = { GridItemSpan(currentLineSpan = columnsSize) },
+                                span = { GridItemSpan(currentLineSpan = columnSize) },
                                 content = {
                                     ButtonComposable(
                                         modifier = Modifier.wrapContentWidth(align = Alignment.CenterHorizontally),
@@ -178,7 +180,7 @@ fun UpcomingMoviesScreenComposable(
 private fun PreviewUpcomingMoviesScreenComposable() {
     UpcomingMoviesScreenComposable(
         lazyPagingItems = flowOf(PagingData.empty<MovieItem>()).collectAsLazyPagingItems(),
-        columnsSize = COLUMN_SIZE_IN_PORTRAIT_MODE,
+        columnSize = COLUMN_SIZE_IN_PORTRAIT_MODE,
         onClickMovie = {}
     )
 }
