@@ -12,7 +12,7 @@ import timber.log.Timber
 
 @RunWith(RobolectricTestRunner::class)
 class KotlinComposeAppTest {
-    lateinit var kotlinComposeApp: KotlinComposeApp
+    private lateinit var kotlinComposeApp: KotlinComposeApp
 
     @Before
     fun setUp() {
