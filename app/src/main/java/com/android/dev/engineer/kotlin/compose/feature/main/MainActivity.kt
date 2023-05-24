@@ -18,8 +18,9 @@ import com.android.dev.engineer.kotlin.compose.feature.sign_in.SignInScreen
 import com.android.dev.engineer.kotlin.compose.feature.upcoming_movies.UpcomingMoviesScreen
 import dagger.hilt.android.AndroidEntryPoint
 
-@AndroidEntryPoint
-class MainActivity : ComponentActivity() {
+// Hilt gradle plugin causes Jacoco coverage issue: https://github.com/google/dagger/issues/1982
+@AndroidEntryPoint(ComponentActivity::class)
+class MainActivity : Hilt_MainActivity() {
     companion object {
         private const val START_DESTINATION_KEY = "start_destination_key"
 
