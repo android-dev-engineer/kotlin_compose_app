@@ -103,7 +103,7 @@ dependencies {
     kapt "com.google.dagger:hilt-compiler:2.46.1"
     // Navigation with Hilt: https://developer.android.com/jetpack/compose/libraries#hilt-navigation
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
-    implementation "io.coil-kt:coil-compose:2.4.0"
+    implementation "io.coil-kt:coil-compose:2.3.0" // Version 2.4.0 causing coroutine test issues
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
