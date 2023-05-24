@@ -81,7 +81,7 @@ kapt {
 }
 
 dependencies {
-    implementation "androidx.activity:activity-compose:1.7.1"
+    implementation "androidx.activity:activity-compose:1.7.2"
     implementation "androidx.compose.material:material:1.4.3"
     // Coroutine Android: https://github.com/Kotlin/kotlinx.coroutines#android
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
@@ -121,7 +121,7 @@ dependencies {
 
     // Paging: https://developer.android.com/jetpack/androidx/releases/paging#declaring_dependencies
     implementation "androidx.paging:paging-runtime-ktx:3.1.1"
-    implementation "androidx.paging:paging-compose:1.0.0-alpha19"
+    implementation "androidx.paging:paging-compose:1.0.0-alpha20"
 
     // Test
     // Coroutines: https://developer.android.com/kotlin/coroutines/test
