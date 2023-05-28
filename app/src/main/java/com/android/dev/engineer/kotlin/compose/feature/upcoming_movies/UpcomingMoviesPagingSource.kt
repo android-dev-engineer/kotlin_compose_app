@@ -5,6 +5,7 @@ import androidx.paging.PagingState
 import com.android.dev.engineer.kotlin.compose.data.domain.network.Movie
 import com.android.dev.engineer.kotlin.compose.data.use_case.upcoming_movie.GetUpcomingMoviesUseCase
 import retrofit2.HttpException
+import timber.log.Timber
 import java.io.IOException
 
 class UpcomingMoviesPagingSource(
@@ -34,10 +35,10 @@ class UpcomingMoviesPagingSource(
                 }
             )
         } catch (e: IOException) {
-            // TODO add log
+            Timber.e(e, "Error when marking intro as complete")
             LoadResult.Error(e)
         } catch (e: HttpException) {
-            // TODO add log
+            Timber.e(e, "Network error when marking intro as complete")
             LoadResult.Error(e)
         }
     }

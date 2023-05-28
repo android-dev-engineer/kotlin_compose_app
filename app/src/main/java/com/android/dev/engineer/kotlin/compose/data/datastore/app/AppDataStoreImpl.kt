@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.edit
 import com.android.dev.engineer.kotlin.compose.data.di.AppPrefs
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import java.io.IOException
 import javax.inject.Inject
 
 class AppDataStoreImpl @Inject constructor(
@@ -18,12 +19,14 @@ class AppDataStoreImpl @Inject constructor(
 
     private val introKey by lazy { booleanPreferencesKey(name = APP_INTRO_KEY) }
 
+    @Throws(IOException::class)
     override suspend fun isIntroPending(): Boolean {
         return dataStore.data.map { preferences ->
             preferences[introKey] ?: true
         }.first()
     }
 
+    @Throws(IOException::class)
     override suspend fun markIntroComplete() {
         dataStore.edit { preferences ->
             preferences[introKey] = false

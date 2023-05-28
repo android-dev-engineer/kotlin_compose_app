@@ -11,6 +11,8 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.io.IOException
 import javax.inject.Inject
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTimedValue
@@ -36,10 +38,11 @@ class RoutingViewModel @Inject constructor(
                 val (mainNavGraph, duration) = measureTimedValue {
                     getInitialRouteUseCase.invoke()
                 }
-                delay(ROUTING_DELAY - duration.inWholeMilliseconds)
+                delay(timeMillis = ROUTING_DELAY - duration.inWholeMilliseconds)
                 _effect.emit(mainNavGraph)
-            } catch (_: Exception) {
-                // TODO add log
+            } catch (e: IOException) {
+                Timber.e(e, "Error when getting initial route")
+            } finally {
                 _effect.emit(MainNavGraph.SignIn)
             }
         }
