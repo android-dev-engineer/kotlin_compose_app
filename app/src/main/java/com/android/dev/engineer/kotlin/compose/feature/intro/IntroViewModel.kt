@@ -8,6 +8,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.launch
+import timber.log.Timber
+import java.io.IOException
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,8 +23,8 @@ class IntroViewModel @Inject constructor(
         viewModelScope.launch {
             try {
                 markIntroCompleteUseCase.invoke()
-            } catch (_: Exception) {
-                // TODO add log
+            } catch (e: IOException) {
+                Timber.e(e, "Error when marking intro as complete")
             } finally {
                 _effect.emit(MainNavGraph.SignIn)
             }

@@ -2,7 +2,6 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
-    id 'com.google.dagger.hilt.android'
     id 'com.google.devtools.ksp'
 }
 
@@ -101,10 +100,12 @@ dependencies {
 
     // Hilt: https://developer.android.com/training/dependency-injection/hilt-android
     implementation "com.google.dagger:hilt-android:2.46.1"
-    kapt "com.google.dagger:hilt-compiler:2.46.1"
+    kapt "com.google.dagger:hilt-android-compiler:2.46.1"
+
     // Navigation with Hilt: https://developer.android.com/jetpack/compose/libraries#hilt-navigation
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
-    implementation "io.coil-kt:coil-compose:2.3.0"
+    implementation "io.coil-kt:coil-compose:2.3.0" // Version 2.4.0 causing coroutine test issues
+    implementation "com.jakewharton.timber:timber:5.0.1"
 
     // DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0"
