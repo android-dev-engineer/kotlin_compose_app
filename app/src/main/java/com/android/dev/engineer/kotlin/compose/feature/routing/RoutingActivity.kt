@@ -13,9 +13,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-// Hilt gradle plugin causes Jacoco coverage issue: https://github.com/google/dagger/issues/1982
-@AndroidEntryPoint(ComponentActivity::class)
-class RoutingActivity : Hilt_RoutingActivity() {
+@AndroidEntryPoint
+class RoutingActivity : ComponentActivity() {
     private val viewModel by viewModels<RoutingViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

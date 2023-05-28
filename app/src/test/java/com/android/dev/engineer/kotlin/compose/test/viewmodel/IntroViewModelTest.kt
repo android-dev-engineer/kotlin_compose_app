@@ -11,7 +11,6 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import java.io.IOException
 
 @ExperimentalCoroutinesApi
 class IntroViewModelTest {
@@ -36,7 +35,7 @@ class IntroViewModelTest {
 
     @Test
     fun `test mark intro failure and move to sign in`() = runTest {
-        markIntroCompleteUseCase.error = IOException()
+        markIntroCompleteUseCase.error = Exception()
         viewModel.markIntroComplete()
         assertEquals(MainNavGraph.SignIn, viewModel.effect.first())
         assertEquals(true, markIntroCompleteUseCase.isIntroPending)

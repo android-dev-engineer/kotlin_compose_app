@@ -1,7 +1,6 @@
 package com.android.dev.engineer.kotlin.compose.extension
 
 import com.android.dev.engineer.kotlin.compose.data.api.TheMovieApi.Companion.DEFAULT_DATE_PATTERN
-import timber.log.Timber
 import java.text.DateFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -13,8 +12,8 @@ fun String.toDateFormatted(locale: Locale = Locale.getDefault()): String {
         if (date != null) {
             return SimpleDateFormat.getDateInstance(DateFormat.LONG, locale).format(date)
         }
-    } catch (e: ParseException) {
-        Timber.w(e, "Error parsing date $this")
+    } catch (_: ParseException) {
+        // TODO add log
     }
     return ""
 }
