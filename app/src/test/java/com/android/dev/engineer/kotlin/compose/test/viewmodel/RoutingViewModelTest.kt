@@ -11,6 +11,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.io.IOException
 
 @ExperimentalCoroutinesApi
 class RoutingViewModelTest {
@@ -41,7 +42,7 @@ class RoutingViewModelTest {
 
     @Test
     fun `test when initial navigation fails and redirect to sign in`() = runTest {
-        getInitialRouteUseCase.error = Exception()
+        getInitialRouteUseCase.error = IOException()
         assertEquals(MainNavGraph.SignIn, viewModel.effect.first())
     }
 }
