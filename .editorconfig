@@ -1,4 +1,4 @@
-# Rules: https://pinterest.github.io/ktlint/rules/configuration-ktlint
+# Rules: https://pinterest.github.io/ktlint/0.49.1/rules/code-styles
 [*.{kt,kts}]
 insert_final_newline = false
 # Check detekt.yml file to customise max_line_length, ref.: https://detekt.dev/docs/rules/style/#maxlinelength
@@ -7,3 +7,5 @@ max_line_length = off
 ktlint_standard_no-wildcard-imports = disabled
 ktlint_standard_import-ordering = disabled
 ktlint_standard_package-name = disabled
+ij_kotlin_allow_trailing_comma_on_call_site = false
+ij_kotlin_allow_trailing_comma = false
