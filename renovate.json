@@ -42,10 +42,23 @@
       ]
     },
     {
+      "groupName": "coroutine dependencies",
+      "matchPackagePatterns": [
+        "io.coil-kt:coil-compose",
+        "org.jetbrains.kotlinx:*"
+      ]
+    },
+    {
       "groupName": "android plugin dependencies",
       "matchPackagePatterns": [
         "com.android.library",
         "com.android.application"
+      ]
+    },
+    {
+      "groupName": "sonar",
+      "matchPackagePatterns": [
+        "org.sonarqube"
       ]
     },
     {
@@ -56,8 +69,7 @@
         "androidx.compose.ui:ui-test-manifest",
         "org.robolectric:robolectric",
         "junit:junit",
-        "androidx.test:core-ktx",
-        "org.jetbrains.kotlinx:kotlinx-coroutines-test"
+        "androidx.test:core-ktx"
       ]
     }
   ]
