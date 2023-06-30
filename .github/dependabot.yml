@@ -11,7 +11,7 @@ updates:
       day: "monday"
       time: "09:00"
       timezone: "Europe/Dublin"
-    open-pull-requests-limit: 10
+    open-pull-requests-limit: 0 # Disable dependabot, renovate is used instead
     target-branch: "develop"
     reviewers:
       - "android-dev-engineer"
