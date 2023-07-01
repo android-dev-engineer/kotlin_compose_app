@@ -15,8 +15,9 @@ plugins {
     id 'org.jlleitschuh.gradle.ktlint' version '11.4.2' apply true
     id 'io.gitlab.arturbosch.detekt' version '1.23.0' apply false
     id 'com.google.devtools.ksp' version '1.8.22-1.0.11' apply false
-    id 'jacoco' // Jacoco plugin: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:jacoco_getting_started
     id "org.sonarqube" version "4.2.1.3168"
+    // Jacoco plugin: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:jacoco_getting_started
+    id 'jacoco'
 }
 
 subprojects {
@@ -46,20 +47,9 @@ subprojects {
                     xml.required.set(true) // It's required for Sonar
                     xml.outputLocation.set(file("${project.buildDir}/reports/jacoco/jacoco.xml"))
                 }
-                def mainSrc = "${project.projectDir}/src/main/java"
-                def kotlinTree = fileTree(
-                        dir: "$project.buildDir/tmp/kotlin-classes/debug",
-                        excludes: [
-                                '**/BuildConfig.*',
-                                '**/*$*',
-                                '**/Hilt_*.class',
-                                'hilt_**',
-                                'dagger/hilt/**',
-                                '**/*JsonAdapter.*'
-                        ]
-                )
-                sourceDirectories.from = file(mainSrc)
-                classDirectories.from = files(kotlinTree)
+
+                sourceDirectories.from = file("${project.projectDir}/src/main/java") // main source set
+                classDirectories.from = files(JacocoUtil.getKotlinFileTree(project))
                 executionData.from = fileTree(dir: project.buildDir, includes: [
                         '**/*.exec', // unit tests
                         '**/*.ec' // ui tests
@@ -70,20 +60,8 @@ subprojects {
             tasks.register('verifyCodeCoverage', JacocoCoverageVerification) {
                 dependsOn 'generateCodeCoverage'
 
-                def mainSrc = "${project.projectDir}/src/main/java"
-                def kotlinTree = fileTree(
-                        dir: "$project.buildDir/tmp/kotlin-classes/debug",
-                        excludes: [
-                                '**/BuildConfig.*',
-                                '**/*$*',
-                                '**/Hilt_*.class',
-                                'hilt_**',
-                                'dagger/hilt/**',
-                                '**/*JsonAdapter.*'
-                        ]
-                )
-                sourceDirectories.from = file(mainSrc)
-                classDirectories.from = files(kotlinTree)
+                sourceDirectories.from = file("${project.projectDir}/src/main/java") // main source set
+                classDirectories.from = files(JacocoUtil.getKotlinFileTree(project))
                 executionData.from = fileTree(dir: project.buildDir, includes: [
                         '**/*.exec', // unit tests
                         '**/*.ec' // ui tests
@@ -199,5 +177,23 @@ sonar {
         // https://docs.sonarqube.org/9.9/analyzing-source-code/importing-external-issues/importing-third-party-issues/
         property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
         property("sonar.kotlin.ktlint.reportPaths", ktlintReportPaths)
+    }
+}
+
+class JacocoUtil {
+    static ConfigurableFileTree getKotlinFileTree(Project project) {
+        return project.fileTree(
+                // Where generated Kotlin classes are located
+                dir: "$project.buildDir/tmp/kotlin-classes/debug",
+                // Exclude everything that is not created by you, e.g. created by HILT
+                excludes: [
+                        '**/BuildConfig.*',
+                        '**/*$*',
+                        '**/Hilt_*.class',
+                        'hilt_**',
+                        'dagger/hilt/**',
+                        '**/*JsonAdapter.*'
+                ]
+        )
     }
 }
