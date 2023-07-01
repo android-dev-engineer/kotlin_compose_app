@@ -40,6 +40,13 @@ subprojects {
             tasks.register('generateCodeCoverage', JacocoReport) {
                 dependsOn 'testDebugUnitTest', 'createDebugCoverageReport'
 
+                sourceDirectories.from = file("${project.projectDir}/src/main/java") // main source set
+                classDirectories.from = files(JacocoUtil.getKotlinFileTree(project))
+                executionData.from = fileTree(dir: project.buildDir, includes: [
+                        '**/*.exec', // unit tests
+                        '**/*.ec' // ui tests
+                ])
+
                 // run unit tests and ui tests to generate code coverage report
                 reports {
                     html.required.set(true)
@@ -47,13 +54,6 @@ subprojects {
                     xml.required.set(true) // It's required for Sonar
                     xml.outputLocation.set(file("${project.buildDir}/reports/jacoco/jacoco.xml"))
                 }
-
-                sourceDirectories.from = file("${project.projectDir}/src/main/java") // main source set
-                classDirectories.from = files(JacocoUtil.getKotlinFileTree(project))
-                executionData.from = fileTree(dir: project.buildDir, includes: [
-                        '**/*.exec', // unit tests
-                        '**/*.ec' // ui tests
-                ])
             }
 
             // Jacoco - Verify violations: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:jacoco_report_violation_rules
@@ -70,7 +70,7 @@ subprojects {
                 violationRules {
                     rule {
                         limit {
-                            minimum = 0.3
+                            minimum = 0.3 // 30%
                         }
                     }
                 }
