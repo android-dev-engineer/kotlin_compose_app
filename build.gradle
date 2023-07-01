@@ -15,9 +15,8 @@ plugins {
     id 'org.jlleitschuh.gradle.ktlint' version '11.4.2' apply true
     id 'io.gitlab.arturbosch.detekt' version '1.23.0' apply false
     id 'com.google.devtools.ksp' version '1.8.22-1.0.11' apply false
+    id 'jacoco' // Jacoco plugin: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:jacoco_getting_started
     id "org.sonarqube" version "4.2.1.3168"
-    // Jacoco plugin: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:jacoco_getting_started
-    id 'jacoco'
 }
 
 subprojects {
@@ -40,6 +39,7 @@ subprojects {
             // Jacoco - Generate reports: https://docs.gradle.org/current/userguide/jacoco_plugin.html#default_values_of_the_jacoco_task_extension
             tasks.register('generateCodeCoverage', JacocoReport) {
                 dependsOn 'testDebugUnitTest', 'createDebugCoverageReport'
+
                 // run unit tests and ui tests to generate code coverage report
                 reports {
                     html.required.set(true)
