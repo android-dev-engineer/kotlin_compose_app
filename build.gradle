@@ -27,45 +27,58 @@ subprojects {
     afterEvaluate {
         android {
             testOptions {
-                reportDir "$project.buildDir/reports/coverage/androidTest/debug/connected" // It's required for Sonar
+                // It's required for Sonar
+                reportDir "$project.buildDir/reports/coverage/androidTest/debug/connected"
 
                 buildTypes {
-                    // Jacoco config: It configures/enables createDebugCoverageReport task to be used in codeCoverage task below
+                    // Jacoco config: It configures/enables createDebugCoverageReport task to be used in generateCodeCoverage task below
                     debug.testCoverageEnabled = true
                 }
             }
 
-            // Jacoco options: https://docs.gradle.org/current/userguide/jacoco_plugin.html#default_values_of_the_jacoco_task_extension
-            tasks.register('codeCoverage', JacocoReport) {
-                dependsOn 'testDebugUnitTest', 'createDebugCoverageReport' // run unit tests and ui tests to generate code coverage report
+            // Jacoco - Generate reports: https://docs.gradle.org/current/userguide/jacoco_plugin.html#default_values_of_the_jacoco_task_extension
+            tasks.register('generateCodeCoverage', JacocoReport) {
+                dependsOn 'testDebugUnitTest', 'createDebugCoverageReport'
+
+                // run unit tests and ui tests to generate code coverage report
                 reports {
                     html.required.set(true)
                     html.outputLocation = layout.buildDirectory.dir('reports/jacoco')
                     xml.required.set(true) // It's required for Sonar
                     xml.outputLocation.set(file("${project.buildDir}/reports/jacoco/jacoco.xml"))
                 }
-                def mainSrc = "${project.projectDir}/src/main/java"
-                def kotlinTree = fileTree(
-                        dir: "$project.buildDir/tmp/kotlin-classes/debug",
-                        excludes: [
-                                '**/BuildConfig.*',
-                                '**/*$*',
-                                '**/Hilt_*.class',
-                                'hilt_**',
-                                'dagger/hilt/**',
-                                '**/*JsonAdapter.*'
-                        ]
-                )
-                sourceDirectories.from = file(mainSrc)
-                classDirectories.from = files(kotlinTree)
+
+                sourceDirectories.from = file("${project.projectDir}/src/main/java") // main source set
+                classDirectories.from = files(JacocoUtil.getKotlinFileTree(project))
                 executionData.from = fileTree(dir: project.buildDir, includes: [
                         '**/*.exec', // unit tests
                         '**/*.ec' // ui tests
                 ])
             }
 
-            rootProject.tasks["sonar"].dependsOn ktlintCheck, tasks["detekt"], tasks["lint"], codeCoverage
-            codeCoverage.mustRunAfter ktlintCheck, tasks["lint"]
+            // Jacoco - Verify violations: https://docs.gradle.org/current/userguide/jacoco_plugin.html#sec:jacoco_report_violation_rules
+            tasks.register('verifyCodeCoverage', JacocoCoverageVerification) {
+                dependsOn 'generateCodeCoverage'
+
+                sourceDirectories.from = file("${project.projectDir}/src/main/java") // main source set
+                classDirectories.from = files(JacocoUtil.getKotlinFileTree(project))
+                executionData.from = fileTree(dir: project.buildDir, includes: [
+                        '**/*.exec', // unit tests
+                        '**/*.ec' // ui tests
+                ])
+
+                violationRules {
+                    rule {
+                        limit {
+                            minimum = 0.3
+                        }
+                    }
+                }
+            }
+
+            rootProject.tasks["sonar"].dependsOn ktlintCheck, tasks["detekt"], tasks["lint"], generateCodeCoverage
+            generateCodeCoverage.mustRunAfter ktlintCheck, tasks["lint"]
+            verifyCodeCoverage.mustRunAfter generateCodeCoverage
         }
     }
 
@@ -112,7 +125,8 @@ subprojects {
             html.required.set(true)
             html.outputLocation.set(file("${project.buildDir}/reports/detekt/detekt.html"))
             xml.required.set(true)
-            xml.outputLocation.set(file("${project.buildDir}/reports/detekt/detekt.xml")) // It's required for Sonar
+            xml.outputLocation.set(file("${project.buildDir}/reports/detekt/detekt.xml"))
+            // It's required for Sonar
         }
     }
 
@@ -158,9 +172,28 @@ sonar {
         property("sonar.projectKey", application_id)
         property("sonar.projectVersion", version_name)
         property("sonar.sourceEncoding", "UTF-8")
-        property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml") // https://docs.sonarqube.org/9.9/analyzing-source-code/test-coverage/java-test-coverage
+        property("sonar.coverage.jacoco.xmlReportPaths", "**/build/reports/jacoco/jacoco.xml")
+        // https://docs.sonarqube.org/9.9/analyzing-source-code/test-coverage/java-test-coverage
         // https://docs.sonarqube.org/9.9/analyzing-source-code/importing-external-issues/importing-third-party-issues/
         property("sonar.kotlin.detekt.reportPaths", "build/reports/detekt/detekt.xml")
         property("sonar.kotlin.ktlint.reportPaths", ktlintReportPaths)
+    }
+}
+
+class JacocoUtil {
+    static ConfigurableFileTree getKotlinFileTree(Project project) {
+        return project.fileTree(
+                // Where generated Kotlin classes are located
+                dir: "$project.buildDir/tmp/kotlin-classes/debug",
+                // Exclude everything that is not created by you, e.g. created by HILT
+                excludes: [
+                        '**/BuildConfig.*',
+                        '**/*$*',
+                        '**/Hilt_*.class',
+                        'hilt_**',
+                        'dagger/hilt/**',
+                        '**/*JsonAdapter.*'
+                ]
+        )
     }
 }
