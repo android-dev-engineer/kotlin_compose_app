@@ -42,7 +42,6 @@ class RoutingViewModel @Inject constructor(
                 _effect.emit(mainNavGraph)
             } catch (e: IOException) {
                 Timber.e(e, "Error when getting initial route")
-            } finally {
                 _effect.emit(MainNavGraph.SignIn)
             }
         }
